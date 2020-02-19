@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayArea : MonoBehaviour
 {
+		/// <summary>
+		/// TEMPERARY variable for debugging purposes
+		/// Can also be kept to ensure there is a background
+		/// </summary>
 		[SerializeField]
 		private GameObject background = null;
 
@@ -40,7 +44,9 @@ public class PlayArea : MonoBehaviour
 		/// </summary>
 		private void CalculateSize()
 		{
-				// Ensures that the camera is above the XZ axis
+				// Ensure that the camera is above the XZ axis
+				// If either bottom-left or top-right corner is below the XZ axis
+				// The raycast value returned will be 0
 				camera.transform.position = -camera.transform.forward * camera.farClipPlane * 0.5f;
 
 				// Create an invisible plane on the XZ axis
@@ -50,18 +56,20 @@ public class PlayArea : MonoBehaviour
 				Ray ray1 = camera.ScreenPointToRay(new Vector3(0, 0, 0));
 				Ray ray2 = camera.ScreenPointToRay(new Vector3(camera.pixelWidth-1, camera.pixelHeight-1, 0));
 
-				// Intersection distances and points on the XZ axis
+				// Intersection distances and points on the XZ axis declerations
 				float intersect1 = 0.0f;
 				float intersect2 = 0.0f;
 				Vector3 point1 = Vector3.zero;
 				Vector3 point2 = Vector3.zero;
 
 				// If there was a successful raycast from the bottom-left set the point
+				// Get the first point intesection position
 				if (plane.Raycast(ray1, out intersect1))
 				{
 						point1 = ray1.GetPoint(intersect1);
 				}
 				// If there was a successful raycast from the top-right set the point
+				// Get the second point intesection position
 				if (plane.Raycast(ray2, out intersect2))
 				{
 						point2 = ray2.GetPoint(intersect2);
@@ -70,11 +78,7 @@ public class PlayArea : MonoBehaviour
 				// Calculate the distance between the X and Z values of the points
 				// Half of the distance is the width and height of the plane
 				Vector3 scaleSize = (point2 - point1) * 0.5f;
-
-				// Set the size of the play area
 				size = new Vector2(scaleSize.x, scaleSize.z);
-
-				Debug.Log(size);
 
 				// If there is a background gameobject
 				// Set the local scale to match with viewport size
