@@ -10,6 +10,8 @@ public class PlayArea : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject background = null;
+    [SerializeField]
+    private GameObject player = null;
 
     /// <summary>
     /// The size of a 2d (XZ) slice that is visible to the main camera

@@ -326,9 +326,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c3126f7e3d1d64cbe1355d264d19ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xPos: 0
-  zPos: 0
-  moveSpeed: 0
+  moveSpeed: 12
+  fireDelay: 0.3
+  currentState: 0
+  colorRef:
+  - {fileID: 2100000, guid: e3cf5d8b75abd2b47845e3a672eaceb6, type: 2}
+  - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
+  - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
+  - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
 --- !u!65 &682338308
 BoxCollider:
   m_ObjectHideFlags: 0
