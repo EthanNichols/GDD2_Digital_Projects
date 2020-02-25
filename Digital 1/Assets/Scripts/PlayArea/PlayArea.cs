@@ -11,10 +11,7 @@ public class PlayArea : MonoBehaviour
     [SerializeField]
     private GameObject background = null;
 
-    /// <summary>
-    /// The size of a 2d (XZ) slice that is visible to the main camera
-    /// </summary>
-    private static Vector2 size;
+		private static Rect rect;
     /// <summary>
     /// Reference to the main camera
     /// </summary>
@@ -23,11 +20,11 @@ public class PlayArea : MonoBehaviour
     /// <summary>
     /// Get the size of a 2d (XZ) slice that is visible to the main camera
     /// </summary>
-    public static Vector2 Size
+    public static Rect Rect
     {
         get
         {
-            return size;
+            return rect;
         }
     }
 
@@ -44,10 +41,19 @@ public class PlayArea : MonoBehaviour
     /// </summary>
     private void CalculateSize()
     {
-        // Ensure that the camera is above the XZ axis
-        // If either bottom-left or top-right corner is below the XZ axis
-        // The raycast value returned will be 0
-        camera.transform.position = -camera.transform.forward * camera.farClipPlane * 0.5f;
+				if (!Application.isPlaying)
+				{
+						camera = Camera.main;
+				}
+				if (camera == null)
+				{
+						return;
+				}
+
+				// Ensure that the camera is above the XZ axis
+				// If either bottom-left or top-right corner is below the XZ axis
+				// The raycast value returned will be 0
+				camera.transform.position = -camera.transform.forward * camera.farClipPlane * 0.5f;
 
         // Create an invisible plane on the XZ axis
         Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -77,14 +83,21 @@ public class PlayArea : MonoBehaviour
 
         // Calculate the distance between the X and Z values of the points
         // Half of the distance is the width and height of the plane
-        Vector3 scaleSize = (point2 - point1) * 0.5f;
-        size = new Vector2(scaleSize.x, scaleSize.z);
+				Vector2 rectPosition = new Vector2(point1.x, point1.z);
+				Vector2 rectSize = new Vector2(point2.x, point2.z) - rectPosition;
+				rect = new Rect(rectPosition, rectSize);
 
         // If there is a background gameobject
         // Set the local scale to match with viewport size
         if (background)
         {
-            background.transform.localScale = new Vector3(size.x, 1, size.y);
+            background.transform.localScale = new Vector3(rect.width, 1, rect.height);
         }
     }
+
+
+		private void OnValidate()
+		{
+				CalculateSize();
+		}
 }
