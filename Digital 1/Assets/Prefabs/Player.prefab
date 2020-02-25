@@ -113,3 +113,5 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
   - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
   - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
+  bulletPrefab: {fileID: 4681291942577299829, guid: d6537b2e7e1c275419e7b65e45b74b01,
+    type: 3}

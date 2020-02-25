@@ -45,6 +45,9 @@ public class PlayerShip : MonoBehaviour
         canFire = true;
     }
 
+    [SerializeField]
+    private GameObject bulletPrefab;
+
     /// <summary>
     /// Handle/Hold Firing logic
     /// </summary>
@@ -55,6 +58,8 @@ public class PlayerShip : MonoBehaviour
 
         // fire a bullet
         Debug.Log("Fire");
+        Vector3 tempPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - .1f);
+        Instantiate(bulletPrefab, tempPos);
 
         // start the timer based on delay
         fireTimer = fireDelay;
