@@ -38,8 +38,8 @@ public class EnemySpawner : MonoBehaviour
 		}
 
 
-    void Update()
-    {
+		void Update()
+		{
 				timeSinceLastSpawn += Time.deltaTime;
 
 				if (timeSinceLastSpawn >= timeBetweenSpawns)
@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
 								Destroy(gameObject);
 						}
 				}
-    }
+		}
 
 		// Draw the rectangle that enemies are spawned in
 		private void OnDrawGizmos()

@@ -4,140 +4,140 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour
 {
-    [SerializeField]
-    private float moveSpeed, fireDelay;
+		[SerializeField]
+		private float moveSpeed, fireDelay;
 
-    private Material currentMaterial;
-    private MeshRenderer meshRenderer;
-    private SphereCollider sphereCollider;
+		private Material currentMaterial;
+		private MeshRenderer meshRenderer;
+		private SphereCollider sphereCollider;
 
-    private float fireTimer;
-    private bool canFire;
+		private float fireTimer;
+		private bool canFire;
 
-    /// <summary>
-    /// List of potential color states of the player
-    /// </summary>
-    private enum ColorState
-    {
-        Neutral,
-        Red,
-        Blue,
-        Yellow
-    }
+		/// <summary>
+		/// List of potential color states of the player
+		/// </summary>
+		private enum ColorState
+		{
+				Neutral,
+				Red,
+				Blue,
+				Yellow
+		}
 
-    [SerializeField]
-    private ColorState currentState;
-    
-    /// <summary>
-    /// Contains list of materials for color changing
-    /// </summary>
-    [SerializeField]
-    private Material[] colorRef;
-   
+		[SerializeField]
+		private ColorState currentState;
 
-    void Start()
-    {
-        currentState = ColorState.Neutral;
-        currentMaterial = GetComponent<Material>();
-        sphereCollider = GetComponent<SphereCollider>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        fireTimer = 0;
-        canFire = true;
-    }
+		/// <summary>
+		/// Contains list of materials for color changing
+		/// </summary>
+		[SerializeField]
+		private Material[] colorRef;
 
-    /// <summary>
-    /// Handle/Hold Firing logic
-    /// </summary>
-    void Fire()
-    {
-        if (!canFire || ColorState.Neutral == currentState)
-            return;
 
-        // fire a bullet
-        Debug.Log("Fire");
+		void Start()
+		{
+				currentState = ColorState.Neutral;
+				currentMaterial = GetComponent<Material>();
+				sphereCollider = GetComponent<SphereCollider>();
+				meshRenderer = GetComponent<MeshRenderer>();
+				fireTimer = 0;
+				canFire = true;
+		}
 
-        // start the timer based on delay
-        fireTimer = fireDelay;
-    }
+		/// <summary>
+		/// Handle/Hold Firing logic
+		/// </summary>
+		void Fire()
+		{
+				if (!canFire || ColorState.Neutral == currentState)
+						return;
 
-    /// <summary>
-    /// Handle Color State switching, then update Material/Mesh
-    /// </summary>
-    /// <param name="colorIndex"></param>
-    void ColorSwitch(int colorIndex)
-    {
-        switch (colorIndex)
-        {
-            case 1:
-                currentState = ColorState.Red;
-                break;
-            case 2:
-                currentState = ColorState.Blue;
-                break;
-            case 3:
-                currentState = ColorState.Yellow;
-                break;
-            default:
-                currentState = ColorState.Neutral;
-                break;
-        }
+				// fire a bullet
+				Debug.Log("Fire");
 
-        UpdateMaterial();
-    }
+				// start the timer based on delay
+				fireTimer = fireDelay;
+		}
 
-    void UpdateMaterial()
-    {
-        currentMaterial = colorRef[(int)currentState];
-        meshRenderer.material = currentMaterial;
-    }
+		/// <summary>
+		/// Handle Color State switching, then update Material/Mesh
+		/// </summary>
+		/// <param name="colorIndex"></param>
+		void ColorSwitch(int colorIndex)
+		{
+				switch (colorIndex)
+				{
+						case 1:
+								currentState = ColorState.Red;
+								break;
+						case 2:
+								currentState = ColorState.Blue;
+								break;
+						case 3:
+								currentState = ColorState.Yellow;
+								break;
+						default:
+								currentState = ColorState.Neutral;
+								break;
+				}
 
-    /// <summary>
-    /// Handle player inputs
-    /// </summary>
-    void HandleInput()
-    {
-        // movement
-        if (Input.GetButton("Horizontal"))
-        {
-            transform.localPosition += Input.GetAxis("Horizontal") * transform.right * Time.deltaTime * moveSpeed;
-        }
+				UpdateMaterial();
+		}
 
-        if (Input.GetButton("Vertical"))
-        {
-            transform.localPosition += Input.GetAxis("Vertical") * transform.forward * Time.deltaTime * moveSpeed;
-        }
+		void UpdateMaterial()
+		{
+				currentMaterial = colorRef[(int)currentState];
+				meshRenderer.material = currentMaterial;
+		}
 
-        // shooting
-        if (Input.GetButton("Jump"))
-        {
-            Fire();
-        }
+		/// <summary>
+		/// Handle player inputs
+		/// </summary>
+		void HandleInput()
+		{
+				// movement
+				if (Input.GetButton("Horizontal"))
+				{
+						transform.localPosition += Input.GetAxis("Horizontal") * transform.right * Time.deltaTime * moveSpeed;
+				}
 
-        // changing color
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            ColorSwitch(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Semicolon))
-        {
-            ColorSwitch(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Quote))
-        {
-            ColorSwitch(3);
-        }
-    }
+				if (Input.GetButton("Vertical"))
+				{
+						transform.localPosition += Input.GetAxis("Vertical") * transform.forward * Time.deltaTime * moveSpeed;
+				}
 
-    /// <summary>
-    /// Handle Inputs, check delays between firing
-    /// </summary>
-    void FixedUpdate()
-    {
-        HandleInput();
-        
-        // Fire Delay Logic
-        if (!canFire)
-            fireTimer -= Time.deltaTime;
-        canFire = fireTimer <= 0;
-    }
+				// shooting
+				if (Input.GetButton("Jump"))
+				{
+						Fire();
+				}
+
+				// changing color
+				if (Input.GetKeyDown(KeyCode.L))
+				{
+						ColorSwitch(1);
+				}
+				if (Input.GetKeyDown(KeyCode.Semicolon))
+				{
+						ColorSwitch(2);
+				}
+				if (Input.GetKeyDown(KeyCode.Quote))
+				{
+						ColorSwitch(3);
+				}
+		}
+
+		/// <summary>
+		/// Handle Inputs, check delays between firing
+		/// </summary>
+		void FixedUpdate()
+		{
+				HandleInput();
+
+				// Fire Delay Logic
+				if (!canFire)
+						fireTimer -= Time.deltaTime;
+				canFire = fireTimer <= 0;
+		}
 }
