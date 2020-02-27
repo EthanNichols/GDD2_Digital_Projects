@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed, fireDelay;
+    private float moveSpeed = default;
+
+    [SerializeField]
+    private float fireDelay = default;
 
     private Material currentMaterial;
     private MeshRenderer meshRenderer;
@@ -14,25 +17,14 @@ public class PlayerShip : MonoBehaviour
     private float fireTimer;
     private bool canFire;
 
-    /// <summary>
-    /// List of potential color states of the player
-    /// </summary>
-    private enum ColorState
-    {
-        Neutral,
-        Red,
-        Blue,
-        Yellow
-    }
-
     [SerializeField]
     private ColorState currentState;
-    
+
     /// <summary>
     /// Contains list of materials for color changing
     /// </summary>
     [SerializeField]
-    private Material[] colorRef;
+    private Material[] colorRef = default;
    
 
     void Start()
@@ -54,7 +46,7 @@ public class PlayerShip : MonoBehaviour
             return;
 
         // fire a bullet
-        Debug.Log("Fire");
+        // TODO - add Bulet spawn
 
         // start the timer based on delay
         fireTimer = fireDelay;
@@ -63,25 +55,10 @@ public class PlayerShip : MonoBehaviour
     /// <summary>
     /// Handle Color State switching, then update Material/Mesh
     /// </summary>
-    /// <param name="colorIndex"></param>
-    void ColorSwitch(int colorIndex)
+    /// <param name="newState"></param>
+    void ColorSwitch(ColorState newState)
     {
-        switch (colorIndex)
-        {
-            case 1:
-                currentState = ColorState.Red;
-                break;
-            case 2:
-                currentState = ColorState.Blue;
-                break;
-            case 3:
-                currentState = ColorState.Yellow;
-                break;
-            default:
-                currentState = ColorState.Neutral;
-                break;
-        }
-
+        currentState = newState;
         UpdateMaterial();
     }
 
@@ -116,22 +93,22 @@ public class PlayerShip : MonoBehaviour
         // changing color
         if (Input.GetKeyDown(KeyCode.L))
         {
-            ColorSwitch(1);
+            ColorSwitch(ColorState.Red);
         }
         if (Input.GetKeyDown(KeyCode.Semicolon))
         {
-            ColorSwitch(2);
+            ColorSwitch(ColorState.Blue);
         }
         if (Input.GetKeyDown(KeyCode.Quote))
         {
-            ColorSwitch(3);
+            ColorSwitch(ColorState.Yellow);
         }
     }
 
     /// <summary>
     /// Handle Inputs, check delays between firing
     /// </summary>
-    void FixedUpdate()
+    void Update()
     {
         HandleInput();
         
