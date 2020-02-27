@@ -13,6 +13,8 @@ public class PlayerShip : MonoBehaviour
 
     private float fireTimer;
     private bool canFire;
+    //[SerializeField]
+    //private Vector3 bulletVelocity;
 
     /// <summary>
     /// List of potential color states of the player
@@ -43,6 +45,11 @@ public class PlayerShip : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         fireTimer = 0;
         canFire = true;
+
+  //      if (bulletVelocity == null) // Are we using full expanded single line if statements?
+		//{
+  //          bulletVelocity = new Vector3(0, 0, -5);
+		//}
     }
 
     [SerializeField]
@@ -59,7 +66,7 @@ public class PlayerShip : MonoBehaviour
         // fire a bullet
         Debug.Log("Fire");
         Vector3 tempPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - .1f);
-        Instantiate(bulletPrefab, tempPos);
+        //GameObject.Instantiate(bulletPrefab, tempPos, Quaternion.Euler(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z)).GetComponent<Bullet>.Velocity = bulletVelocity;
 
         // start the timer based on delay
         fireTimer = fireDelay;
