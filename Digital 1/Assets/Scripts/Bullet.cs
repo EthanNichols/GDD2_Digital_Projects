@@ -7,7 +7,7 @@ namespace Digital1
 	public class Bullet : ColoredObj
 	{
 		[SerializeField]
-		public Vector3 defaultVelocity = new Vector3(0, 0, -3);
+		private Vector3 defaultBulletVelocity = new Vector3(0, 0, -0.25f);
 		[SerializeField]
 		private Vector3 velocity;
 		public Vector3 Velocity
@@ -28,7 +28,7 @@ namespace Digital1
 		{
 			if (velocity == null || velocity.sqrMagnitude == 0)
 			{
-				velocity = defaultVelocity;
+				velocity = defaultBulletVelocity;
 			}
 			SetColor();
 		}

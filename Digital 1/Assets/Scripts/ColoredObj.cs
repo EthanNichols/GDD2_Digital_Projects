@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace Digital1
 {
+    /// <summary>
+	/// Base class for colored objects (i.e. player, bullets, enemies).
+	/// </summary>
     public class ColoredObj : MonoBehaviour
     {
         /// <summary>
-        /// List of potential color states of the player/bullet/enemy
+        /// List of potential color states of the player/bullet/enemy.
         /// </summary>
         public enum ColorState
         {
@@ -17,9 +20,9 @@ namespace Digital1
             Yellow
         }
 
-        [SerializeField]
+        //[SerializeField]
         private Material currentMaterial;
-        [SerializeField]
+        //[SerializeField]
         private MeshRenderer meshRenderer;
 
         [SerializeField]
@@ -30,12 +33,15 @@ namespace Digital1
         }
 
         /// <summary>
-        /// Contains list of materials for color changing
+        /// Contains list of materials for color changing.
         /// </summary>
         [SerializeField]
         private Material[] colorRef;
 
-        // Start is called before the first frame update
+        /// <summary>
+		/// Start is called before the first frame update
+		/// </summary>
+		/// <remarks>Known problem where meshRenderer is not initialized here; currently effective workaround is in <see cref="UpdateMaterial"/>.</remarks>
         void Start()
         {
             currentState = ColorState.Neutral;
@@ -48,7 +54,7 @@ namespace Digital1
         }
 
         /// <summary>
-        /// Handle Color State switching, then update Material/Mesh
+        /// Handle Color State switching, then update Material/Mesh.
         /// </summary>
         /// <param name="colorIndex"></param>
         protected void ColorSwitch(int colorIndex)
@@ -75,7 +81,7 @@ namespace Digital1
         void UpdateMaterial()
         {
             currentMaterial = colorRef[(int)currentState];
-            if (meshRenderer == null)
+            if (meshRenderer == null) // Fallback for faulty init
 			{
                 meshRenderer = GetComponent<MeshRenderer>();
             }
