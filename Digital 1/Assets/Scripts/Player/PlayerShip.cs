@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,10 @@ namespace Digital1
     public class PlayerShip : ColoredObj
     {
         [SerializeField]
-        private float moveSpeed, fireDelay;
+		    private float moveSpeed = default;
+
+		    [SerializeField]
+		    private float fireDelay = default;
 
         private SphereCollider sphereCollider;
 
@@ -64,18 +67,18 @@ namespace Digital1
             }
 
             // changing color
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                ColorSwitch(1);
-            }
-            if (Input.GetKeyDown(KeyCode.Semicolon))
-            {
-                ColorSwitch(2);
-            }
-            if (Input.GetKeyDown(KeyCode.Quote))
-            {
-                ColorSwitch(3);
-            }
+			      if (Input.GetKeyDown(KeyCode.L))
+			      {
+				        ColorSwitch(ColorState.Red);
+			      }
+			      if (Input.GetKeyDown(KeyCode.Semicolon))
+			      {
+				        ColorSwitch(ColorState.Blue);
+			      }
+			      if (Input.GetKeyDown(KeyCode.Quote))
+			      {
+				        ColorSwitch(ColorState.Yellow);
+			      }
         }
 
         /// <summary>
