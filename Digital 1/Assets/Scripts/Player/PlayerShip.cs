@@ -2,154 +2,100 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShip : MonoBehaviour
+namespace Digital1
 {
-    [SerializeField]
-    private float moveSpeed, fireDelay;
-
-    private Material currentMaterial;
-    private MeshRenderer meshRenderer;
-    private SphereCollider sphereCollider;
-
-    private float fireTimer;
-    private bool canFire;
-    //[SerializeField]
-    //private Vector3 bulletVelocity;
-
-    /// <summary>
-    /// List of potential color states of the player
-    /// </summary>
-    private enum ColorState
+    public class PlayerShip : ColoredObj
     {
-        Neutral,
-        Red,
-        Blue,
-        Yellow
-    }
+        [SerializeField]
+        private float moveSpeed, fireDelay;
 
-    [SerializeField]
-    private ColorState currentState;
-    
-    /// <summary>
-    /// Contains list of materials for color changing
-    /// </summary>
-    [SerializeField]
-    private Material[] colorRef;
-   
+        private SphereCollider sphereCollider;
 
-    void Start()
-    {
-        currentState = ColorState.Neutral;
-        currentMaterial = GetComponent<Material>();
-        sphereCollider = GetComponent<SphereCollider>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        fireTimer = 0;
-        canFire = true;
+        private float fireTimer;
+        private bool canFire;
+        //[SerializeField]
+        //private Vector3 bulletVelocity;
 
-  //      if (bulletVelocity == null) // Are we using full expanded single line if statements?
-		//{
-  //          bulletVelocity = new Vector3(0, 0, -5);
-		//}
-    }
-
-    [SerializeField]
-    private GameObject bulletPrefab;
-
-    /// <summary>
-    /// Handle/Hold Firing logic
-    /// </summary>
-    void Fire()
-    {
-        if (!canFire || ColorState.Neutral == currentState)
-            return;
-
-        // fire a bullet
-        Debug.Log("Fire");
-        Vector3 tempPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - .1f);
-        //GameObject.Instantiate(bulletPrefab, tempPos, Quaternion.Euler(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z)).GetComponent<Bullet>.Velocity = bulletVelocity;
-
-        // start the timer based on delay
-        fireTimer = fireDelay;
-    }
-
-    /// <summary>
-    /// Handle Color State switching, then update Material/Mesh
-    /// </summary>
-    /// <param name="colorIndex"></param>
-    void ColorSwitch(int colorIndex)
-    {
-        switch (colorIndex)
+        void Start()
         {
-            case 1:
-                currentState = ColorState.Red;
-                break;
-            case 2:
-                currentState = ColorState.Blue;
-                break;
-            case 3:
-                currentState = ColorState.Yellow;
-                break;
-            default:
-                currentState = ColorState.Neutral;
-                break;
+            sphereCollider = GetComponent<SphereCollider>();
+            fireTimer = 0;
+            canFire = true;
+
+            //      if (bulletVelocity == null) // Are we using full expanded single line if statements?
+            //{
+            //          bulletVelocity = new Vector3(0, 0, -5);
+            //}
         }
 
-        UpdateMaterial();
-    }
+        [SerializeField]
+        private GameObject bulletPrefab;
 
-    void UpdateMaterial()
-    {
-        currentMaterial = colorRef[(int)currentState];
-        meshRenderer.material = currentMaterial;
-    }
-
-    /// <summary>
-    /// Handle player inputs
-    /// </summary>
-    void HandleInput()
-    {
-        // movement
-        if (Input.GetButton("Horizontal"))
+        /// <summary>
+        /// Handle/Hold Firing logic
+        /// </summary>
+        void Fire()
         {
-            transform.localPosition += Input.GetAxis("Horizontal") * transform.right * Time.deltaTime * moveSpeed;
+            if (!canFire || ColorState.Neutral == currentState)
+                return;
+
+            // fire a bullet
+            Debug.Log("Fire");
+            Vector3 tempPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - .1f);
+            GameObject.Instantiate(bulletPrefab, tempPos, bulletPrefab.transform.rotation * Quaternion.Euler(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z));
+
+            // start the timer based on delay
+            fireTimer = fireDelay;
         }
 
-        if (Input.GetButton("Vertical"))
+        /// <summary>
+        /// Handle player inputs
+        /// </summary>
+        void HandleInput()
         {
-            transform.localPosition += Input.GetAxis("Vertical") * transform.forward * Time.deltaTime * moveSpeed;
+            // movement
+            if (Input.GetButton("Horizontal"))
+            {
+                transform.localPosition += Input.GetAxis("Horizontal") * transform.right * Time.deltaTime * moveSpeed;
+            }
+
+            if (Input.GetButton("Vertical"))
+            {
+                transform.localPosition += Input.GetAxis("Vertical") * transform.forward * Time.deltaTime * moveSpeed;
+            }
+
+            // shooting
+            if (Input.GetButton("Jump") || Input.GetKey("space"))
+            {
+                Fire();
+            }
+
+            // changing color
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                ColorSwitch(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Semicolon))
+            {
+                ColorSwitch(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Quote))
+            {
+                ColorSwitch(3);
+            }
         }
 
-        // shooting
-        if (Input.GetButton("Jump"))
+        /// <summary>
+        /// Handle Inputs, check delays between firing
+        /// </summary>
+        void FixedUpdate()
         {
-            Fire();
-        }
+            HandleInput();
 
-        // changing color
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            ColorSwitch(1);
+            // Fire Delay Logic
+            if (!canFire)
+                fireTimer -= Time.deltaTime;
+            canFire = fireTimer <= 0;
         }
-        if (Input.GetKeyDown(KeyCode.Semicolon))
-        {
-            ColorSwitch(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Quote))
-        {
-            ColorSwitch(3);
-        }
-    }
-
-    /// <summary>
-    /// Handle Inputs, check delays between firing
-    /// </summary>
-    void FixedUpdate()
-    {
-        HandleInput();
-        
-        // Fire Delay Logic
-        if (!canFire)
-            fireTimer -= Time.deltaTime;
-        canFire = fireTimer <= 0;
     }
 }

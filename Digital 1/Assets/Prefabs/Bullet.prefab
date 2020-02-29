@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4204972104359574958}
   - component: {fileID: 1577505931602772093}
   - component: {fileID: 1046717388051814808}
+  - component: {fileID: 6349308855696673692}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -93,3 +94,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6349308855696673692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681291942577299829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0046bbf7813a1cd4885828f54598a9a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  colorRef:
+  - {fileID: 2100000, guid: e3cf5d8b75abd2b47845e3a672eaceb6, type: 2}
+  - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
+  - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
+  - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
+  defaultVelocity: {x: 0, y: 0, z: -0.5}
+  velocity: {x: 0, y: 0, z: 0}
