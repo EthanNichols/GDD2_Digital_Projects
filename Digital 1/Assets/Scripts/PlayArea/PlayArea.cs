@@ -38,15 +38,6 @@ public class PlayArea : MonoBehaviour
 	}
 
 
-	private void Update()
-	{
-		if (!Application.isPlaying)
-		{
-			CalculateSize();
-		}
-	}
-
-
 	/// <summary>
 	/// Calculate the 2d width and height that is visible to the main camera
 	/// </summary>
@@ -124,11 +115,5 @@ public class PlayArea : MonoBehaviour
 		BoxCollider leftBound = gameObject.AddComponent<BoxCollider>();
 		leftBound.center = new Vector3(Rect.x, 0.0f, 0.0f);
 		leftBound.size = new Vector3(0.0f, 1.0f, rect.height);
-	}
-
-
-	private void OnValidate()
-	{
-		CalculateSize();
 	}
 }
