@@ -2,41 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Digital1
+public class Bullet : ColoredObj
 {
-	public class Bullet : ColoredObj
+	[SerializeField]
+	private Vector3 defaultBulletVelocity = new Vector3(0, 0, -0.25f);
+
+	[SerializeField]
+	private Vector3 velocity;
+	public Vector3 Velocity
 	{
-		[SerializeField]
-		private Vector3 defaultBulletVelocity = new Vector3(0, 0, -0.25f);
-		[SerializeField]
-		private Vector3 velocity;
-		public Vector3 Velocity
+		set
 		{
-			set
-			{
-				velocity = value;
-			}
+			velocity = value;
 		}
+	}
 
-		public void SetColor()
-		{
-			ColorSwitch((int)(GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerShip>().CurrentState));
-		}
+	public void SetColor()
+	{
+		ColorSwitch(GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerShip>().CurrentState);
+	}
 
-		// Start is called before the first frame update
-		void Start()
+	// Start is called before the first frame update
+	void Start()
+	{
+		if (velocity == null || velocity.sqrMagnitude == 0)
 		{
-			if (velocity == null || velocity.sqrMagnitude == 0)
-			{
-				velocity = defaultBulletVelocity;
-			}
-			SetColor();
+			velocity = defaultBulletVelocity;
 		}
+		SetColor();
+	}
 
-		// Update is called once per frame
-		void FixedUpdate()
-		{
-			this.transform.position = this.transform.position + velocity;
-		}
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+		this.transform.position = this.transform.position + velocity;
 	}
 }
