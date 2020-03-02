@@ -11,6 +11,7 @@ public class PlayerShip : ColoredObj
 	private float fireDelay = default;
 
 	private SphereCollider sphereCollider;
+	private Rigidbody rigidbody;
 
 	private float fireTimer;
 	private bool canFire;
@@ -18,6 +19,8 @@ public class PlayerShip : ColoredObj
 	void Start()
 	{
 		sphereCollider = GetComponent<SphereCollider>();
+		rigidbody = GetComponent<Rigidbody>();
+
 		fireTimer = 0;
 		canFire = true;
 	}
@@ -48,15 +51,11 @@ public class PlayerShip : ColoredObj
 	void HandleInput()
 	{
 		// movement
-		if (Input.GetButton("Horizontal"))
-		{
-			transform.localPosition += Input.GetAxis("Horizontal") * transform.right * Time.deltaTime * moveSpeed;
-		}
-
-		if (Input.GetButton("Vertical"))
-		{
-			transform.localPosition += Input.GetAxis("Vertical") * transform.forward * Time.deltaTime * moveSpeed;
-		}
+		Vector3 movement = Vector3.zero;
+		movement.x = Input.GetAxis("Horizontal");
+		movement.z = Input.GetAxis("Vertical");
+		movement.Normalize();
+		rigidbody.velocity = movement * moveSpeed;
 
 		// shooting
 		if (Input.GetButton("Jump") || Input.GetKey("space"))

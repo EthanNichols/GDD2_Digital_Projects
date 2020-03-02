@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3606396754197552549}
   - component: {fileID: 3606396754197552548}
   - component: {fileID: 3606396754197552547}
+  - component: {fileID: 5385510240966853380}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3606396754197552546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -105,13 +106,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c3126f7e3d1d64cbe1355d264d19ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  fireDelay: 0.3
   currentState: 0
   colorRef:
   - {fileID: 2100000, guid: e3cf5d8b75abd2b47845e3a672eaceb6, type: 2}
   - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
   - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
   - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
+  moveSpeed: 15
+  fireDelay: 0.3
   bulletPrefab: {fileID: 4681291942577299829, guid: d6537b2e7e1c275419e7b65e45b74b01,
     type: 3}
+--- !u!54 &5385510240966853380
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606396754197552546}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0

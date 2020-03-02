@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayArea : MonoBehaviour
 {
 	/// <summary>
@@ -29,14 +30,15 @@ public class PlayArea : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	/// <remarks>Uses LateStart to fix cam not being correctly set.</remarks>
-	void LateStart()
+	void Start()
 	{
 		camera = Camera.main;
 
 		CalculateSize();
+		CreateBounds();
 	}
 
 
@@ -100,8 +102,22 @@ public class PlayArea : MonoBehaviour
 	}
 
 
-	private void OnValidate()
+	private void CreateBounds()
 	{
-		CalculateSize();
+		BoxCollider topBound = gameObject.AddComponent<BoxCollider>();
+		topBound.center = new Vector3(0.0f, 0.0f, Rect.y + Rect.height);
+		topBound.size = new Vector3(rect.width, 1.0f, 0.0f);
+
+		BoxCollider bottomBound = gameObject.AddComponent<BoxCollider>();
+		bottomBound.center = new Vector3(0.0f, 0.0f, Rect.y);
+		bottomBound.size = new Vector3(rect.width, 1.0f, 0.0f);
+
+		BoxCollider rightBound = gameObject.AddComponent<BoxCollider>();
+		rightBound.center = new Vector3(Rect.x + Rect.width, 0.0f, 0.0f);
+		rightBound.size = new Vector3(0.0f, 1.0f, rect.height);
+
+		BoxCollider leftBound = gameObject.AddComponent<BoxCollider>();
+		leftBound.center = new Vector3(Rect.x, 0.0f, 0.0f);
+		leftBound.size = new Vector3(0.0f, 1.0f, rect.height);
 	}
 }
