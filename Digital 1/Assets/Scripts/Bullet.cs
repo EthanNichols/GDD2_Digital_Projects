@@ -5,7 +5,14 @@ using UnityEngine;
 public class Bullet : ColoredObj
 {
 	[SerializeField]
-	private Vector3 defaultBulletVelocity = new Vector3(0, 0, -0.25f);
+	private Vector3 defaultBulletVelocity = Vector3.forward;
+
+    [SerializeField]
+    private float bulletSpeed = -0.25f;
+
+    [SerializeField]
+    private float maxLifeTime = 5.0f;
+    private float currLifeTime;
 
 	[SerializeField]
 	private Vector3 velocity;
@@ -30,11 +37,22 @@ public class Bullet : ColoredObj
 			velocity = defaultBulletVelocity;
 		}
 		SetColor();
+        currLifeTime = maxLifeTime;
 	}
 
 	// Update is called once per frame
 	void FixedUpdate()
 	{
-		this.transform.position = this.transform.position + velocity;
+		this.transform.position += velocity * bulletSpeed;
 	}
+
+    // non-physics update
+    void Update()
+    {
+        currLifeTime -= Time.deltaTime;
+        if (currLifeTime <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

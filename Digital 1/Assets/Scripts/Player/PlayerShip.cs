@@ -36,13 +36,22 @@ public class PlayerShip : ColoredObj
 		if (!canFire || ColorState.Neutral == currentState)
 			return;
 
-		// Fire a bullet
-		Debug.Log("Player Bullet Fired.");
-		Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - .1f);
-		GameObject.Instantiate(bulletPrefab, bulletSpawnPos, bulletPrefab.transform.rotation * Quaternion.Euler(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z));
+		// Get Mouse Position, rotate ship to that position
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.y = 0;
 
-		// start the timer based on delay
-		fireTimer = fireDelay;
+        Vector3 tempPosition = transform.position;
+        tempPosition.y = 0;
+
+        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
+        
+        // spawn bullet, set the veloctiy based on ship
+        Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) - transform.forward;
+        GameObject newBullet = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, bulletPrefab.transform.rotation.eulerAngles.z));
+        newBullet.GetComponent<Bullet>().Velocity = transform.forward;
+
+        // start the timer based on delay
+        fireTimer = fireDelay;
 	}
 
 	/// <summary>
@@ -58,7 +67,7 @@ public class PlayerShip : ColoredObj
 		rigidbody.velocity = movement * moveSpeed;
 
 		// shooting
-		if (Input.GetButton("Jump") || Input.GetKey("space"))
+		if (Input.GetAxis("Fire1") == 1.0f)
 		{
 			Fire();
 		}
