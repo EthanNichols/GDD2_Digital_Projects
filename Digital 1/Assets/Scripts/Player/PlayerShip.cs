@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShip : MonoBehaviour
+public class PlayerShip : ColoredObj
 {
 	[SerializeField]
 	private float moveSpeed = default;
@@ -10,79 +10,56 @@ public class PlayerShip : MonoBehaviour
 	[SerializeField]
 	private float fireDelay = default;
 
-	private Material currentMaterial;
-	private MeshRenderer meshRenderer;
 	private SphereCollider sphereCollider;
-	private new Rigidbody rigidbody;
 
 	private float fireTimer;
 	private bool canFire;
 
-	[SerializeField]
-	private ColorState currentState;
-
-	/// <summary>
-	/// Contains list of materials for color changing
-	/// </summary>
-	[SerializeField]
-	private Material[] colorRef = default;
-
-
 	void Start()
 	{
-		currentState = ColorState.Neutral;
-		currentMaterial = GetComponent<Material>();
 		sphereCollider = GetComponent<SphereCollider>();
-		meshRenderer = GetComponent<MeshRenderer>();
-		rigidbody = GetComponent<Rigidbody>();
 		fireTimer = 0;
 		canFire = true;
 	}
 
+	[SerializeField]
+	private GameObject bulletPrefab;
+
 	/// <summary>
-	/// Handle/Hold Firing logic
+	/// Handle/Hold Firing logic.
 	/// </summary>
 	void Fire()
 	{
 		if (!canFire || ColorState.Neutral == currentState)
 			return;
 
-		// fire a bullet
-		// TODO - add Bulet spawn
+		// Fire a bullet
+		Debug.Log("Player Bullet Fired.");
+		Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - .1f);
+		GameObject.Instantiate(bulletPrefab, bulletSpawnPos, bulletPrefab.transform.rotation * Quaternion.Euler(this.transform.forward.x, this.transform.forward.y, this.transform.forward.z));
 
 		// start the timer based on delay
 		fireTimer = fireDelay;
 	}
 
 	/// <summary>
-	/// Handle Color State switching, then update Material/Mesh
-	/// </summary>
-	/// <param name="newState"></param>
-	void ColorSwitch(ColorState newState)
-	{
-		currentState = newState;
-		UpdateMaterial();
-	}
-
-	void UpdateMaterial()
-	{
-		currentMaterial = colorRef[(int)currentState];
-		meshRenderer.material = currentMaterial;
-	}
-
-	/// <summary>
-	/// Handle player inputs
+	/// Handle player inputs.
 	/// </summary>
 	void HandleInput()
 	{
-		Vector3 movement = Vector3.zero;
-		movement.x = Input.GetAxis("Horizontal");
-		movement.z = Input.GetAxis("Vertical");
-		movement.Normalize();
-		rigidbody.velocity = movement * moveSpeed;
+		// movement
+		if (Input.GetButton("Horizontal"))
+		{
+			transform.localPosition += Input.GetAxis("Horizontal") * transform.right * Time.deltaTime * moveSpeed;
+		}
+
+		if (Input.GetButton("Vertical"))
+		{
+			transform.localPosition += Input.GetAxis("Vertical") * transform.forward * Time.deltaTime * moveSpeed;
+		}
 
 		// shooting
-		if (Input.GetButton("Jump"))
+		if (Input.GetButton("Jump") || Input.GetKey("space"))
 		{
 			Fire();
 		}
@@ -103,9 +80,9 @@ public class PlayerShip : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Handle Inputs, check delays between firing
+	/// Handle Inputs, check delays between firing.
 	/// </summary>
-	void Update()
+	void FixedUpdate()
 	{
 		HandleInput();
 
