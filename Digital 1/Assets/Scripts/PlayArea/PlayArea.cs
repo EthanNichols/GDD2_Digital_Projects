@@ -30,10 +30,10 @@ public class PlayArea : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	/// <remarks>Uses LateStart to fix cam not being correctly set.</remarks>
-	void LateStart()
+	void Start()
 	{
 		camera = Camera.main;
 
