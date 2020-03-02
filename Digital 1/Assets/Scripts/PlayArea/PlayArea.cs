@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayArea : MonoBehaviour
 {
 	/// <summary>
-	/// TEMPERARY variable for debugging purposes
+	/// TEMPORARY variable for debugging purposes
 	/// Can also be kept to ensure there is a background
 	/// </summary>
 	[SerializeField]
@@ -28,7 +28,11 @@ public class PlayArea : MonoBehaviour
 		}
 	}
 
-	void Start()
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>Uses LateStart to fix cam not being correctly set.</remarks>
+	void LateStart()
 	{
 		camera = Camera.main;
 
