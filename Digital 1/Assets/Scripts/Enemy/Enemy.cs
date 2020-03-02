@@ -20,12 +20,16 @@ public class Enemy : MonoBehaviour
 	/// </summary>
 	public float acceleration;
 
+	public float directionRandomness = 0.0f;
+
 	//[Header("Rotation Movement")]
 	//public float angularVelocity;
 
 	private void Start()
 	{
 		transform.forward = movementDirection;
+
+		transform.Rotate(Vector3.up, Random.Range(-directionRandomness, directionRandomness));
 	}
 
 
@@ -36,5 +40,10 @@ public class Enemy : MonoBehaviour
 		//transform.Rotate(Vector3.up, angularVelocity * Time.deltaTime);
 
 		transform.position += transform.forward * speed * Time.deltaTime;
+
+		if (transform.position.magnitude > PlayArea.Rect.width * 0.65f)
+		{
+			Destroy(gameObject);
+		}
 	}
 }
