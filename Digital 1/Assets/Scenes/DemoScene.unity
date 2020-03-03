@@ -258,6 +258,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 3606396754197552551, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -316,12 +321,17 @@ PrefabInstance:
     - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_Mass
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_Drag
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 014a640eb8af2c845987f56cfee60d1e, type: 3}
@@ -440,7 +450,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -498,7 +508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963177003}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
