@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 2134032511009694986, guid: fc5142d88b6c4054da49846700cb2422,
         type: 3}
       propertyPath: spinning
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134032511009694986, guid: fc5142d88b6c4054da49846700cb2422,
         type: 3}
@@ -292,6 +292,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2134032511586671411, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5882353
+      objectReference: {fileID: 0}
     - target: {fileID: 2134032511644567224, guid: fc5142d88b6c4054da49846700cb2422,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -317,6 +322,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 112.8
       objectReference: {fileID: 0}
+    - target: {fileID: 2134032511661817365, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: fillColor.a
+      value: 0.5882353
+      objectReference: {fileID: 0}
     - target: {fileID: 2134032511661817366, guid: fc5142d88b6c4054da49846700cb2422,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -341,6 +351,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -88.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134032511673810015, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134032511731091952, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134032512124293433, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5882353
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc5142d88b6c4054da49846700cb2422, type: 3}
