@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
-    public GameObject healthBarPanel;
-    public GameObject healthBarFill;
-    private RectTransform healthBarFillTransform;
+    //This should not be the slider UI. It is purely visual and doesn't use player input
+    [SerializeField] private GameObject healthBarPanel;
+    [SerializeField] private GameObject healthBarFill;
+    [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
 
-    public float health;
-    public float maxHealth;
+    private RectTransform healthBarFillTransform;
 
     /// <summary>
     /// Get/Set the health value of the health bar
     /// </summary>
-    public float Health
-    {
+    public float Health{
         get
         {
             return health;
@@ -50,7 +50,8 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        //For testing only
+        /*
+         *         //For testing only
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Health++;
@@ -59,6 +60,8 @@ public class HealthBar : MonoBehaviour
         {
             Health--;
         }
+         */
+
     }
 
     /// <summary>

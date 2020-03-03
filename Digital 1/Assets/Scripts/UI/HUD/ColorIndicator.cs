@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorIndicator : MonoBehaviour
 {
-    public Color fillColor;
-    public GameObject colorIndPanel;
-    public GameObject colorIndFill;
-    private UnityEngine.UI.Image fillImage;
+    [SerializeField] private GameObject colorIndPanel;
+    [SerializeField] private GameObject colorIndFill;
+    [SerializeField] private Color fillColor;
 
-    private Color[] testColors = new Color[] {new Color(1, 0, 0, 1), new Color(0, 1, 0, 1), new Color(0, 0, 1, 1)};
+    private Image fillImage;
 
     /// <summary>
-    /// Get/Set the color of the color indicator
+    /// The current color the indicator displays
     /// </summary>
     public Color FillColor
     {
@@ -27,45 +27,18 @@ public class ColorIndicator : MonoBehaviour
 
     void Start()
     {
-        fillImage = colorIndFill.GetComponent<UnityEngine.UI.Image>();
+        fillImage = colorIndFill.GetComponent<Image>();
         UpdateFill();
     }
 
     void Update()
     {
-        //For testing only
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (FillColor.Equals(testColors[0]))
-            {
-                FillColor = testColors[1];
-            }
-            else if (FillColor.Equals(testColors[1]))
-            {
-                FillColor = testColors[2];
-            }
-            else if (FillColor.Equals(testColors[2]))
-            {
-                FillColor = testColors[0];
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (FillColor == testColors[0])
-            {
-                FillColor = testColors[2];
-            }
-            else if (FillColor == testColors[1])
-            {
-                FillColor = testColors[0];
-            }
-            else if (FillColor == testColors[2])
-            {
-                FillColor = testColors[1];
-            }
-        }
+
     }
 
+    /// <summary>
+    /// Update the color value of the color indicator fill
+    /// </summary>
     public void UpdateFill()
     {
         fillImage.color = fillColor;
