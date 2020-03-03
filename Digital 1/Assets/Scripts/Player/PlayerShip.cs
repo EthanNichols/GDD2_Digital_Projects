@@ -35,15 +35,6 @@ public class PlayerShip : ColoredObj
 	{
 		if (!canFire || ColorState.Neutral == currentState)
 			return;
-
-		// Get Mouse Position, rotate ship to that position
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.y = 0;
-
-        Vector3 tempPosition = transform.position;
-        tempPosition.y = 0;
-
-        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
         
         // spawn bullet, set the veloctiy based on ship
         Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) - transform.forward;
@@ -125,6 +116,15 @@ public class PlayerShip : ColoredObj
     void Update()
 	{
         HandleInput();
+
+        // Get Mouse Position, rotate ship to that position
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.y = 0;
+
+        Vector3 tempPosition = transform.position;
+        tempPosition.y = 0;
+
+        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
 
         // Fire Delay Logic
         if (!canFire)
