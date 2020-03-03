@@ -28,8 +28,11 @@ public class Enemy : ColoredObj
 	private void Start()
 	{
 		transform.forward = movementDirection;
-
 		transform.Rotate(Vector3.up, Random.Range(-directionRandomness, directionRandomness));
+
+        // set self to random color
+        int color = Random.Range(1, 4);
+        ColorSwitch((ColorState)color);
 	}
 
 
