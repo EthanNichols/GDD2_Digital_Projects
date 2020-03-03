@@ -52,7 +52,7 @@ public class Bullet : ColoredObj
         currLifeTime -= Time.deltaTime;
         if (currLifeTime <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }
