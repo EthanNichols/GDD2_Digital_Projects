@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 815276240914675563}
   - component: {fileID: 1935357259352575011}
   - component: {fileID: 5369044053577666740}
-  m_Layer: 0
-  m_Name: Enemy
+  m_Layer: 9
+  m_Name: Base Movement Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,4 +105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023c33c0a24735249b6b30a5e383b8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
+  currentState: 0
+  colorRef:
+  - {fileID: 2100000, guid: e3cf5d8b75abd2b47845e3a672eaceb6, type: 2}
+  - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
+  - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
+  - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
+  movementDirection: {x: 0, y: 0, z: 0}
+  speed: 0
+  maxSpeed: 0
+  acceleration: 0
+  directionRandomness: 0

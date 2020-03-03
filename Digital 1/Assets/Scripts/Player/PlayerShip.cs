@@ -98,10 +98,31 @@ public class PlayerShip : ColoredObj
         }
 	}
 
-	/// <summary>
-	/// Handle Inputs, check delays between firing.
-	/// </summary>
-	void FixedUpdate()
+    /// <summary>
+    /// Method called when Player is hit and destroyed
+    /// </summary>
+    void GameOver()
+    {
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Detect collisions with enemy
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnCollisionEnter(Collision collision)
+    {
+        Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
+        if (collidedEnemy != null)
+        {
+            GameOver();
+        }
+    }
+
+    /// <summary>
+    /// Handle Inputs, check delays between firing.
+    /// </summary>
+    void FixedUpdate()
 	{
 		// Fire Delay Logic
 		if (!canFire)

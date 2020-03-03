@@ -40,8 +40,26 @@ public class Bullet : ColoredObj
         currLifeTime = maxLifeTime;
 	}
 
-	// Update is called once per frame
-	void FixedUpdate()
+    /// <summary>
+    /// Check if bullet collides with Enemy ship
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnCollisionEnter(Collision collision)
+    {
+        Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
+        if (collidedEnemy != null)
+        {
+            if (collidedEnemy.CurrentState == this.currentState)
+            {
+                collidedEnemy.DestroyShip();
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
 	{
 		this.transform.position += velocity * bulletSpeed;
 	}

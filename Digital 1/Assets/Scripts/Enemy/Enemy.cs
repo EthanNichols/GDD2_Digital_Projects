@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : ColoredObj
 {
 	public Vector3 movementDirection;
 
@@ -28,8 +28,11 @@ public class Enemy : MonoBehaviour
 	private void Start()
 	{
 		transform.forward = movementDirection;
-
 		transform.Rotate(Vector3.up, Random.Range(-directionRandomness, directionRandomness));
+
+        // set self to random color
+        int color = Random.Range(1, 4);
+        ColorSwitch((ColorState)color);
 	}
 
 
@@ -46,4 +49,9 @@ public class Enemy : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+    public void DestroyShip() 
+    {
+        Destroy(gameObject);
+    }
 }
