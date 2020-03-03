@@ -52,6 +52,6 @@ public class Enemy : ColoredObj
 
     public void DestroyShip() 
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

@@ -103,7 +103,7 @@ public class PlayerShip : ColoredObj
     /// </summary>
     void GameOver()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     /// <summary>
