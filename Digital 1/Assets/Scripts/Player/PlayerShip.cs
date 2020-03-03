@@ -56,7 +56,6 @@ public class PlayerShip : ColoredObj
 		movement.z = Input.GetAxis("Vertical");
 		movement.Normalize();
 		rigidbody.AddForce(movement * moveSpeed);
-        Debug.Log(movement);
 
 		// shooting
 		if (Input.GetAxis("Fire1") == 1.0f)
