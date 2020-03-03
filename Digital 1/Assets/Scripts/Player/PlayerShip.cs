@@ -73,18 +73,29 @@ public class PlayerShip : ColoredObj
 		}
 
 		// changing color
-		if (Input.GetKeyDown(KeyCode.L))
-		{
-			ColorSwitch(ColorState.Red);
-		}
-		if (Input.GetKeyDown(KeyCode.Semicolon))
-		{
-			ColorSwitch(ColorState.Blue);
-		}
-		if (Input.GetKeyDown(KeyCode.Quote))
-		{
-			ColorSwitch(ColorState.Yellow);
-		}
+        if (Input.GetAxis("Mouse ScrollWheel") > 0) 
+        {
+            if ((int)currentState < 3)
+            {
+                ColorSwitch(currentState + 1);
+            }
+            else 
+            {
+                ColorSwitch((ColorState)1);
+            }
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0) 
+        {
+            if ((int)currentState > 1)
+            {
+                ColorSwitch(currentState - 1); ;
+            }
+            else
+            {
+                ColorSwitch((ColorState)3);
+            }
+        }
 	}
 
 	/// <summary>
@@ -92,11 +103,14 @@ public class PlayerShip : ColoredObj
 	/// </summary>
 	void FixedUpdate()
 	{
-		HandleInput();
-
 		// Fire Delay Logic
 		if (!canFire)
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
 	}
+
+    void Update() 
+    {
+        HandleInput();
+    }
 }
