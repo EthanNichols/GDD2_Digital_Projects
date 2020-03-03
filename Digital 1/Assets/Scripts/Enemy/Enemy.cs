@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : ColoredObj
 {
 	public Vector3 movementDirection;
 
@@ -46,4 +46,9 @@ public class Enemy : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+    public void DestroyShip() 
+    {
+        Destroy(this.gameObject);
+    }
 }

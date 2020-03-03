@@ -90,4 +90,19 @@ public class PlayerShip : ColoredObj
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
 	}
+
+    void GameOver() 
+    {
+        Destroy(this.gameObject);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
+        if (collidedEnemy != null)
+        {
+            if (collidedEnemy.CurrentState == this.currentState)
+                GameOver();
+        }
+    }
 }

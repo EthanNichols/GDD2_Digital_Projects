@@ -37,4 +37,15 @@ public class Bullet : ColoredObj
 	{
 		this.transform.position = this.transform.position + velocity;
 	}
+
+    // if a bullet hits an enemy ship
+    private void OnCollisionEnter(Collision collision)
+    {
+        Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
+        if (collidedEnemy != null)
+        {
+            if (collidedEnemy.CurrentState == this.currentState)
+                collidedEnemy.DestroyShip();
+        }
+    }
 }
