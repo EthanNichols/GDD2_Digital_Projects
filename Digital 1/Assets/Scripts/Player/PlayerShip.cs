@@ -122,16 +122,13 @@ public class PlayerShip : ColoredObj
     /// <summary>
     /// Handle Inputs, check delays between firing.
     /// </summary>
-    void FixedUpdate()
+    void Update()
 	{
-		// Fire Delay Logic
-		if (!canFire)
+        HandleInput();
+
+        // Fire Delay Logic
+        if (!canFire)
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
 	}
-
-    void Update() 
-    {
-        HandleInput();
-    }
 }
