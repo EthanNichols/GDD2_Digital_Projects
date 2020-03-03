@@ -52,11 +52,11 @@ public class PlayerShip : ColoredObj
 	{
 		// movement
 		Vector3 movement = Vector3.zero;
-		movement.x = Input.GetAxis("Horizontal");
-		movement.z = Input.GetAxis("Vertical");
+		movement += -Input.GetAxis("Vertical") * transform.forward;
+        
+
 		movement.Normalize();
 		rigidbody.AddForce(movement * moveSpeed);
-        Debug.Log(movement);
 
 		// shooting
 		if (Input.GetAxis("Fire1") == 1.0f)
