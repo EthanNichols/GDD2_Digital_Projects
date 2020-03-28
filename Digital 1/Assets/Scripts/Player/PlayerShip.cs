@@ -10,6 +10,11 @@ public class PlayerShip : ColoredObj
 	[SerializeField]
 	private float fireDelay = default;
 
+    [SerializeField]
+    private HealthBar healthBar;
+    [SerializeField]
+    private ColorIndicator colorIndicator;
+
 	private SphereCollider sphereCollider;
 	private Rigidbody rigidbody;
 
@@ -74,6 +79,7 @@ public class PlayerShip : ColoredObj
             {
                 ColorSwitch((ColorState)1);
             }
+            colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0) 
@@ -86,6 +92,7 @@ public class PlayerShip : ColoredObj
             {
                 ColorSwitch((ColorState)3);
             }
+            colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
         }
 	}
 
@@ -94,6 +101,7 @@ public class PlayerShip : ColoredObj
     /// </summary>
     void GameOver()
     {
+        healthBar.Health = 0;
         Destroy(gameObject);
     }
 
