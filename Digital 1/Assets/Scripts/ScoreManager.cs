@@ -9,6 +9,7 @@ namespace Assets.Scripts.Shared
 {
     class ScoreManager:Singleton<ScoreManager>
     {
+        [SerializeField]
         int score = 0;
 
         public int GetScore { get => score; }
