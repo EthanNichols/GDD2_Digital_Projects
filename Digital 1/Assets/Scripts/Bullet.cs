@@ -9,7 +9,7 @@ public class Bullet : ColoredObj
 	private Vector3 defaultBulletVelocity = Vector3.forward;
 
     [SerializeField]
-    private float bulletSpeed = -0.25f;
+    private float bulletSpeed;
 
     [SerializeField]
     private float maxLifeTime = 5.0f;

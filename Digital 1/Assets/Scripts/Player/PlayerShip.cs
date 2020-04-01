@@ -10,6 +10,11 @@ public class PlayerShip : ColoredObj
 	[SerializeField]
 	private float fireDelay = default;
 
+    [SerializeField]
+    private HealthBar healthBar;
+    [SerializeField]
+    private ColorIndicator colorIndicator;
+
 	private SphereCollider sphereCollider;
 	private Rigidbody rigidbody;
 
@@ -35,15 +40,6 @@ public class PlayerShip : ColoredObj
 	{
 		if (!canFire || ColorState.Neutral == currentState)
 			return;
-
-		// Get Mouse Position, rotate ship to that position
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.y = 0;
-
-        Vector3 tempPosition = transform.position;
-        tempPosition.y = 0;
-
-        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
         
         // spawn bullet, set the veloctiy based on ship
         Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) - transform.forward;
@@ -64,7 +60,7 @@ public class PlayerShip : ColoredObj
 		movement.x = Input.GetAxis("Horizontal");
 		movement.z = Input.GetAxis("Vertical");
 		movement.Normalize();
-		rigidbody.velocity = movement * moveSpeed;
+		rigidbody.AddForce(movement * moveSpeed);
 
 		// shooting
 		if (Input.GetAxis("Fire1") == 1.0f)
@@ -83,6 +79,7 @@ public class PlayerShip : ColoredObj
             {
                 ColorSwitch((ColorState)1);
             }
+            colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0) 
@@ -95,6 +92,7 @@ public class PlayerShip : ColoredObj
             {
                 ColorSwitch((ColorState)3);
             }
+            colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
         }
 	}
 
@@ -103,6 +101,7 @@ public class PlayerShip : ColoredObj
     /// </summary>
     void GameOver()
     {
+        healthBar.Health = 0;
         Destroy(gameObject);
     }
 
@@ -122,16 +121,22 @@ public class PlayerShip : ColoredObj
     /// <summary>
     /// Handle Inputs, check delays between firing.
     /// </summary>
-    void FixedUpdate()
+    void Update()
 	{
-		// Fire Delay Logic
-		if (!canFire)
+        HandleInput();
+
+        // Get Mouse Position, rotate ship to that position
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.y = 0;
+
+        Vector3 tempPosition = transform.position;
+        tempPosition.y = 0;
+
+        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
+
+        // Fire Delay Logic
+        if (!canFire)
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
 	}
-
-    void Update() 
-    {
-        HandleInput();
-    }
 }
