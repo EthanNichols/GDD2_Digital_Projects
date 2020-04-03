@@ -301,6 +301,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5457440526730232449, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457440526730232450, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5457440526782812002, guid: fc5142d88b6c4054da49846700cb2422,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -411,6 +421,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5457440527536435993, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457440527893204999, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5457440528588504887, guid: fc5142d88b6c4054da49846700cb2422,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -435,6 +455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853980949966468933, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc5142d88b6c4054da49846700cb2422, type: 3}
