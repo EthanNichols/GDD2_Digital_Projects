@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuPath: MainMenu
-  gamePath: UITest
+  gamePath: DemoScene
   gameOverPath: GameOver

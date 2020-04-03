@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private PlayerShip player;
+    [SerializeField] private SceneSwitch sceneSwitcher;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +20,11 @@ public class GameManager : MonoBehaviour
         if(Input.GetKey(KeyCode.R))
         {
             SceneManager.LoadScene("DemoScene");
+        }
+
+        if (player.IsDead)
+        {
+            sceneSwitcher.GotoGameOver();
         }
     }
 }

@@ -21,6 +21,14 @@ public class PlayerShip : ColoredObj
 	private float fireTimer;
 	private bool canFire;
 
+    public bool IsDead
+    {
+        get
+        {
+            return healthBar.Health <= 0;
+        }
+    }
+
 	void Start()
 	{
 		sphereCollider = GetComponent<SphereCollider>();
