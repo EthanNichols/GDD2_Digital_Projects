@@ -315,7 +315,7 @@ PrefabInstance:
     - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_Constraints
-      value: 84
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
@@ -542,6 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 0}
+  camera: {fileID: 0}
 --- !u!1001 &1645528820
 PrefabInstance:
   m_ObjectHideFlags: 0
