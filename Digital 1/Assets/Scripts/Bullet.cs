@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Shared;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,6 +52,7 @@ public class Bullet : ColoredObj
         {
             if (collidedEnemy.CurrentState == this.currentState)
             {
+                ScoreManager.Instance.ChangeScoreBy(collidedEnemy.ScoreValue);
                 collidedEnemy.DestroyShip();
             }
 
