@@ -29,6 +29,8 @@ public class Enemy : ColoredObj
 
 	public float directionRandomness = 0.0f;
 
+	public GameObject powerupRef = null;
+
 
     //[Header("Rotation Movement")]
     //public float angularVelocity;
@@ -60,6 +62,11 @@ public class Enemy : ColoredObj
 
     public void DestroyShip() 
     {
+		if (powerupRef)
+		{
+			GameObject powerup = Instantiate(powerupRef);
+			powerup.transform.position = transform.position;
+		}
         Destroy(gameObject);
     }
 }

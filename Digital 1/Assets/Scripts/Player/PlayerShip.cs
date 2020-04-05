@@ -29,6 +29,40 @@ public class PlayerShip : ColoredObj
         }
     }
 
+    // powerup flags
+    private bool twinFire = false;
+    private float twinFireTimer;
+
+    private float twinFireAngle = 15;
+
+    [SerializeField]
+    private float maxTwinFireTimer;
+
+    [SerializeField]
+    private int maxShieldCharges;
+    private int shieldCharges = 0;
+
+    private bool superCharge = false;
+    private float superChargeTimer;
+    [SerializeField]
+    private float maxSuperChargeTimer;
+
+    public bool TwinFire
+    {
+        set
+        {
+            twinFire = value;
+        }
+    }
+
+    public bool SuperCharge
+    {
+        set
+        {
+            twinFire = value;
+        }
+    }
+
 	void Start()
 	{
 		sphereCollider = GetComponent<SphereCollider>();
@@ -53,6 +87,16 @@ public class PlayerShip : ColoredObj
         Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) - transform.forward;
         GameObject newBullet = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, bulletPrefab.transform.rotation.eulerAngles.z));
         newBullet.GetComponent<Bullet>().Velocity = transform.forward;
+
+        if (twinFire)
+        {
+            // spawn bullet, set the veloctiy based on ship
+            GameObject bulletTwo = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + twinFireAngle, bulletPrefab.transform.rotation.eulerAngles.z));
+            GameObject bulletThree = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - twinFireAngle, bulletPrefab.transform.rotation.eulerAngles.z));
+            bulletTwo.GetComponent<Bullet>().Velocity = Quaternion.AngleAxis(twinFireAngle, Vector3.up) * transform.forward;
+            bulletThree.GetComponent<Bullet>().Velocity = Quaternion.AngleAxis(-twinFireAngle, Vector3.up) * transform.forward;
+            
+        }
 
         // start the timer based on delay
         fireTimer = fireDelay;
@@ -122,8 +166,35 @@ public class PlayerShip : ColoredObj
         Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
         if (collidedEnemy != null)
         {
-            GameOver();
+            if (shieldCharges > 0)
+                DestroyShield();
+            else
+                GameOver();
         }
+    }
+
+    // activate shield. or increase charge
+    public void DeployShield()
+    {
+        if (shieldCharges < maxShieldCharges)
+            shieldCharges++;
+    }
+
+    void DestroyShield()
+    {
+        shieldCharges--;
+    }
+
+    public void ActivateTwinFire()
+    {
+        twinFire = true;
+        twinFireTimer = maxTwinFireTimer;
+    }
+
+    public void ActivateSuperCharge()
+    {
+        superCharge = true;
+        superChargeTimer = maxSuperChargeTimer;
     }
 
     /// <summary>
@@ -146,5 +217,13 @@ public class PlayerShip : ColoredObj
         if (!canFire)
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
+
+        if (twinFire)
+            twinFireTimer -= Time.deltaTime;
+        twinFire = twinFireTimer > 0;
+
+        if (superCharge)
+            superChargeTimer -= Time.deltaTime;
+        superCharge = superChargeTimer > 0;
 	}
 }

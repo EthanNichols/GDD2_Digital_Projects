@@ -28,6 +28,9 @@ public class EdgeEnemySpawner : MonoBehaviour
 	/// </summary>
 	private float radius;
 
+	
+	[SerializeField] private GameObject[] powerupList;
+    [SerializeField] private float powerupSpawnRate;
 
 	private void Start()
 	{
@@ -50,6 +53,9 @@ public class EdgeEnemySpawner : MonoBehaviour
 		newEnemy.movementDirection = -spawnDirection;
 		newEnemy.maxSpeed = 5.0f;
 		newEnemy.speed = 5.0f;
+		
+		if (Random.value < powerupSpawnRate)
+			newEnemy.powerupRef = powerupList[(int) Mathf.Floor(Random.Range(0.0f, powerupList.Length - 0.001f))];  
 	}
 
 

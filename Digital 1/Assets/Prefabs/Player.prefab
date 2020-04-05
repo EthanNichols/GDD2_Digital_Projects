@@ -114,6 +114,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
   moveSpeed: 15
   fireDelay: 0.3
+  healthBar: {fileID: 0}
+  colorIndicator: {fileID: 0}
+  maxTwinFireTimer: 10
+  maxShieldCharges: 3
+  maxSuperChargeTimer: 10
   bulletPrefab: {fileID: 4681291942577299829, guid: d6537b2e7e1c275419e7b65e45b74b01,
     type: 3}
 --- !u!54 &5385510240966853380

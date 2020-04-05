@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cb9eadbf815bd4c98a8f6944cc24a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
 --- !u!4 &454504276
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &455753421 stripped
 MonoBehaviour:
@@ -521,7 +522,7 @@ GameObject:
   - component: {fileID: 855464375}
   - component: {fileID: 855464374}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,6 +542,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 892681461}
   sceneSwitcher: {fileID: 678432543}
+  enemySpawers:
+  - {fileID: 2103122002}
 --- !u!4 &855464375
 Transform:
   m_ObjectHideFlags: 0
@@ -878,6 +881,9 @@ MonoBehaviour:
     type: 3}
   spawnCount: 10000
   timeBetweenSpawns: 1
+  powerupList:
+  - {fileID: 5521555916644125540, guid: 14c40bb54a8b0a44cb3aff6f040a53dd, type: 3}
+  powerupSpawnRate: 0.25
 --- !u!4 &2103122004
 Transform:
   m_ObjectHideFlags: 0
