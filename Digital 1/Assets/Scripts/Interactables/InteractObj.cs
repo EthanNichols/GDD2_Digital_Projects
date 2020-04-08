@@ -5,6 +5,8 @@ using UnityEngine;
 public class InteractObj : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private float maxlife = 15;
+    private float currLife = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -14,12 +16,16 @@ public class InteractObj : MonoBehaviour
 		{
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
+
+        currLife = maxlife;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        currLife -= Time.deltaTime;
+        if (currLife <= 0.0f)
+            Destroy(gameObject);
     }
 
     /// <summary>

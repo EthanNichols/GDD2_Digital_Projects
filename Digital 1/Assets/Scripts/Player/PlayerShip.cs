@@ -39,8 +39,8 @@ public class PlayerShip : ColoredObj
     private float maxTwinFireTimer;
 
     [SerializeField]
-    private int maxShieldCharges;
-    private int shieldCharges = 0;
+    private GameObject shieldRef;
+    private GameObject activeShield; 
 
     private bool superCharge = false;
     private float superChargeTimer;
@@ -74,7 +74,7 @@ public class PlayerShip : ColoredObj
 
 	[SerializeField]
 	private GameObject bulletPrefab;
-
+    
 	/// <summary>
 	/// Handle/Hold Firing logic.
 	/// </summary>
@@ -166,23 +166,25 @@ public class PlayerShip : ColoredObj
         Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
         if (collidedEnemy != null)
         {
-            if (shieldCharges > 0)
-                DestroyShield();
-            else
-                GameOver();
+            GameOver();
         }
     }
 
     // activate shield. or increase charge
     public void DeployShield()
     {
-        if (shieldCharges < maxShieldCharges)
-            shieldCharges++;
+        if (null == activeShield)
+        {
+            activeShield = Instantiate(shieldRef, transform.position, Quaternion.identity);
+            activeShield.transform.parent = gameObject.transform;
+        }
+        else
+            activeShield.GetComponent<Shield>().IncreaseShieldCharge();
     }
 
     void DestroyShield()
     {
-        shieldCharges--;
+        activeShield.GetComponent<Shield>().DecreaseShieldCharge();
     }
 
     public void ActivateTwinFire()

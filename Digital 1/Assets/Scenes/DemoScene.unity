@@ -426,6 +426,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6376587792882738705, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376587792882738705, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428446841354443810, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428446841354443810, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428446841354443810, guid: fc5142d88b6c4054da49846700cb2422,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc5142d88b6c4054da49846700cb2422, type: 3}
 --- !u!1 &798142237
@@ -585,6 +610,12 @@ PrefabInstance:
       propertyPath: colorIndicator
       value: 
       objectReference: {fileID: 543358317}
+    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
+      propertyPath: shieldRef
+      value: 
+      objectReference: {fileID: 4143690774997680629, guid: 39331386ff24388469b94a6bc37737b0,
+        type: 3}
     - target: {fileID: 3606396754197552551, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -883,7 +914,9 @@ MonoBehaviour:
   timeBetweenSpawns: 1
   powerupList:
   - {fileID: 5521555916644125540, guid: 14c40bb54a8b0a44cb3aff6f040a53dd, type: 3}
-  powerupSpawnRate: 0.25
+  - {fileID: 5521555916644125540, guid: bbe82925ce5b6ac40a6eb014fee4f328, type: 3}
+  - {fileID: 5521555916644125540, guid: f7bf910b85d77c24cbe180a735ee9047, type: 3}
+  powerupSpawnRate: 1
 --- !u!4 &2103122004
 Transform:
   m_ObjectHideFlags: 0
