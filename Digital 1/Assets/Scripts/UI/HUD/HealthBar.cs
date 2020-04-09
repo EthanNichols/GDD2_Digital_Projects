@@ -5,11 +5,9 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private GameObject healthBarSlider;
+    [SerializeField] private Slider slider;
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
-
-    private Slider healthSlider;
 
     /// <summary>
     /// Get/Set the health value of the health bar. If the value is higher than <code>MaxHealth</code>, <code>Health</code> will simply be set to <code>MaxHealth</code>
@@ -54,7 +52,6 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-        healthSlider = healthBarSlider.GetComponent<Slider>();
         UpdateFill();
     }
 
@@ -68,8 +65,7 @@ public class HealthBar : MonoBehaviour
     /// </summary>
     void UpdateFill()
     {
-        float value = health / maxHealth;
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = health;
+        slider.maxValue = maxHealth;
+        slider.value = health;
     }
 }
