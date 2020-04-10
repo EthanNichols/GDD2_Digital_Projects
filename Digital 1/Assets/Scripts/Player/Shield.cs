@@ -24,7 +24,6 @@ public class Shield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentCharge);
         if (currentCharge <= 0)
             Destroy(gameObject);
     }
@@ -34,7 +33,6 @@ public class Shield : MonoBehaviour
         Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
         if (collidedEnemy != null)
         {
-            Debug.Log("AAAAH");
             ScoreManager.Instance.ChangeScoreBy(collidedEnemy.ScoreValue);
             collidedEnemy.DestroyShip();
 

@@ -5,11 +5,11 @@ using UnityEngine;
 public class InteractObj : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    private float maxlife = 15;
+    private float maxlife = 5;
     private float currLife = 0;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 		if (spriteRenderer == null)
@@ -21,7 +21,7 @@ public class InteractObj : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         currLife -= Time.deltaTime;
         if (currLife <= 0.0f)
@@ -31,9 +31,9 @@ public class InteractObj : MonoBehaviour
     /// <summary>
     /// Checks if player enters interactable object collision
     /// </summary>
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        PlayerShip player = collision.gameObject.GetComponent<PlayerShip>();
+        PlayerShip player = collider.gameObject.GetComponent<PlayerShip>();
         if (player != null)
         {
             ApplyEffectToPlayer(player);

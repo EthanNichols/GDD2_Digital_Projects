@@ -597,11 +597,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
-      propertyPath: moveSpeed
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
-        type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 455753421}
@@ -612,10 +607,9 @@ PrefabInstance:
       objectReference: {fileID: 543358317}
     - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
-      propertyPath: shieldRef
-      value: 
-      objectReference: {fileID: 4143690774997680629, guid: 39331386ff24388469b94a6bc37737b0,
-        type: 3}
+      propertyPath: colorSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3606396754197552551, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -670,21 +664,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
-        type: 3}
-      propertyPath: m_Mass
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
-        type: 3}
-      propertyPath: m_Drag
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5385510240966853380, guid: 014a640eb8af2c845987f56cfee60d1e,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 014a640eb8af2c845987f56cfee60d1e, type: 3}

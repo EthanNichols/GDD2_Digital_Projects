@@ -46,6 +46,8 @@ public class PlayerShip : ColoredObj
     private float superChargeTimer;
     [SerializeField]
     private float maxSuperChargeTimer;
+    private ColorState preSCColorState;
+
 
     public bool TwinFire
     {
@@ -63,8 +65,9 @@ public class PlayerShip : ColoredObj
         }
     }
 
-	void Start()
+	public override void Start()
 	{
+        base.Start();
 		sphereCollider = GetComponent<SphereCollider>();
 		rigidbody = GetComponent<Rigidbody>();
 
@@ -121,30 +124,33 @@ public class PlayerShip : ColoredObj
 		}
 
 		// changing color
-        if (Input.GetAxis("Mouse ScrollWheel") > 0) 
+        if (!superCharge)
         {
-            if ((int)currentState < 3)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0) 
             {
-                ColorSwitch(currentState + 1);
+                if ((int)currentState < 3)
+                {
+                    ColorSwitch(currentState + 1);
+                }
+                else 
+                {
+                    ColorSwitch((ColorState)1);
+                }
+                colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
             }
-            else 
-            {
-                ColorSwitch((ColorState)1);
-            }
-            colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
-        }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0) 
-        {
-            if ((int)currentState > 1)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0) 
             {
-                ColorSwitch(currentState - 1); ;
+                if ((int)currentState > 1)
+                {
+                    ColorSwitch(currentState - 1); ;
+                }
+                else
+                {
+                    ColorSwitch((ColorState)3);
+                }
+                colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
             }
-            else
-            {
-                ColorSwitch((ColorState)3);
-            }
-            colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
         }
 	}
 
@@ -197,13 +203,24 @@ public class PlayerShip : ColoredObj
     {
         superCharge = true;
         superChargeTimer = maxSuperChargeTimer;
+        preSCColorState = currentState;
+        ColorSwitch(ColorState.Rainbow);
+    }
+
+    private void DeactivateSuperCharge()
+    {
+        superCharge = superChargeTimer > 0;
+        if (!superCharge)
+            ColorSwitch(preSCColorState);
     }
 
     /// <summary>
     /// Handle Inputs, check delays between firing.
     /// </summary>
-    void Update()
+    public override void Update()
 	{
+        base.Update();
+
         HandleInput();
 
         // Get Mouse Position, rotate ship to that position
@@ -225,7 +242,9 @@ public class PlayerShip : ColoredObj
         twinFire = twinFireTimer > 0;
 
         if (superCharge)
+        {
             superChargeTimer -= Time.deltaTime;
-        superCharge = superChargeTimer > 0;
+            DeactivateSuperCharge();
+        }
 	}
 }
