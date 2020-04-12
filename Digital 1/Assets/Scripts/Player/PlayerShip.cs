@@ -203,8 +203,11 @@ public class PlayerShip : ColoredObj
     {
         superCharge = true;
         superChargeTimer = maxSuperChargeTimer;
-        preSCColorState = currentState;
-        ColorSwitch(ColorState.Rainbow);
+        if (currentState != ColorState.Rainbow)
+        {
+            preSCColorState = currentState;
+            ColorSwitch(ColorState.Rainbow);
+        }
     }
 
     private void DeactivateSuperCharge()
