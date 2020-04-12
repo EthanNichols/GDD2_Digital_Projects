@@ -114,7 +114,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
   - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
   defaultBulletVelocity: {x: 0, y: 0, z: -0.25}
-  bulletSpeed: -0.25
+  bulletSpeed: -1
   maxLifeTime: 5
   velocity: {x: 0, y: 0, z: 0}
 --- !u!54 &3284715279256893249

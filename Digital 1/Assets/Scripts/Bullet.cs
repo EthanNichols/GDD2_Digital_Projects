@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Shared;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Bullet : ColoredObj
 	private Vector3 defaultBulletVelocity = Vector3.forward;
 
     [SerializeField]
-    private float bulletSpeed = -0.25f;
+    private float bulletSpeed;
 
     [SerializeField]
     private float maxLifeTime = 5.0f;
@@ -51,6 +52,7 @@ public class Bullet : ColoredObj
         {
             if (collidedEnemy.CurrentState == this.currentState)
             {
+                ScoreManager.Instance.ChangeScoreBy(collidedEnemy.ScoreValue);
                 collidedEnemy.DestroyShip();
             }
 
