@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerShip player;
     [SerializeField] private SceneSwitch sceneSwitcher;
+    [SerializeField] private GameObject[] enemySpawers;
 
     // Start is called before the first frame update
     void Start()
