@@ -6,6 +6,7 @@ public class FollowingEnemy : Enemy
 {
 	[Header("Follow Parameters")]
 	//The center and manager of the boid, and the target that is being seeked
+	//
 	public FollowingEnemyManager manager;
 
 	//Information about the boid's movement
@@ -29,6 +30,11 @@ public class FollowingEnemy : Enemy
 	{
 		//Set the position to the current position
 		position = transform.position;
+
+		if (manager == null)
+		{
+			manager = FindObjectOfType<FollowingEnemyManager>();
+		}
 	}
 
 	void Update()

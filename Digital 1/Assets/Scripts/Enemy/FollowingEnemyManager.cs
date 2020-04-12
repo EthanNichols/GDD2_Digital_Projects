@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowingEnemyManager : MonoBehaviour
+public class FollowingEnemyManager : EnemySpawner
 {
+	new FollowingEnemy enemyPrefab;
+
 	//The boid prefab, and list of boids in the scene
-	public GameObject boid;
 	public List<GameObject> boids = new List<GameObject>();
 
 	//The target being seeked
@@ -18,6 +19,10 @@ public class FollowingEnemyManager : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		if (target == null)
+		{
+			target = FindObjectOfType<PlayerShip>().transform;
+		}
 
 		//If there are no boids in the list create a random amount of boids
 		if (boids.Count == 0)
@@ -45,6 +50,11 @@ public class FollowingEnemyManager : MonoBehaviour
 		//Set the direction the center is facing
 		float angle = Mathf.Atan2(avgDirection.x, avgDirection.z) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(angle, new Vector3(0, 1, 0));
+	}
+
+	public void SetTarget(Transform newTarget)
+	{
+		target = newTarget;
 	}
 
 	private void BoidCenter()
@@ -99,7 +109,7 @@ public class FollowingEnemyManager : MonoBehaviour
 		//Create a new boid and add it the list
 		for (int i = 0; i < amount; i++)
 		{
-			GameObject newBoid = Instantiate(boid, Vector3.zero, Quaternion.identity);
+			GameObject newBoid = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity).gameObject;
 			newBoid.transform.position = new Vector3(transform.position.x + Random.Range(-20, 20), transform.position.y, transform.position.z + Random.Range(-20, 20));
 
 			newBoid.GetComponent<FollowingEnemy>().manager = this;
