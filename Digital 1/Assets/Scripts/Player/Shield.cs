@@ -15,6 +15,11 @@ public class Shield : MonoBehaviour
 
     private int currentCharge = 0;
 
+    public int Charges
+    {
+        get { return currentCharge; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

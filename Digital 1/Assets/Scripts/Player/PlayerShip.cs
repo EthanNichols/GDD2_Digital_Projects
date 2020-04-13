@@ -16,9 +16,13 @@ public class PlayerShip : ColoredObj
     [SerializeField]
     private ColorIndicator colorIndicator;
     [SerializeField]
-    private PowerupBar powerupBar;
+    private PowerupBar twinFireBar;
+    [SerializeField]
+    private PowerupBar superChargeBar;
+    [SerializeField]
+    private PowerupBar shieldBar;
 
-	private SphereCollider sphereCollider;
+    private SphereCollider sphereCollider;
 	private Rigidbody rigidbody;
 
 	private float fireTimer;
@@ -51,12 +55,6 @@ public class PlayerShip : ColoredObj
     private float maxSuperChargeTimer;
     private ColorState preSCColorState;
 
-    //Temporary sprites for powerups, will change when powerups are more fleshed out
-    [SerializeField]
-    private Sprite superChargeSprite;
-    [SerializeField]
-    private Sprite twinFireSprite;
-
     public bool TwinFire
     {
         set
@@ -81,9 +79,12 @@ public class PlayerShip : ColoredObj
 
 		fireTimer = 0;
 		canFire = true;
-	}
 
-	[SerializeField]
+        twinFireBar.MaxTime = maxTwinFireTimer;
+        superChargeBar.MaxTime = maxSuperChargeTimer;
+    }
+
+    [SerializeField]
 	private GameObject bulletPrefab;
     
 	/// <summary>
@@ -194,6 +195,7 @@ public class PlayerShip : ColoredObj
         }
         else
             activeShield.GetComponent<Shield>().IncreaseShieldCharge();
+
     }
 
     void DestroyShield()
@@ -205,9 +207,6 @@ public class PlayerShip : ColoredObj
     {
         twinFire = true;
         twinFireTimer = maxTwinFireTimer;
-
-        powerupBar.Sprite = twinFireSprite;
-        powerupBar.MaxTime = maxTwinFireTimer;
     }
 
     public void ActivateSuperCharge()
@@ -219,9 +218,6 @@ public class PlayerShip : ColoredObj
             preSCColorState = currentState;
             ColorSwitch(ColorState.Rainbow);
         }
-
-        powerupBar.Sprite = superChargeSprite;
-        powerupBar.MaxTime = maxSuperChargeTimer;
     }
 
     private void DeactivateSuperCharge()
@@ -249,21 +245,15 @@ public class PlayerShip : ColoredObj
 
         transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
 
+
         // Fire Delay Logic
         if (!canFire)
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
 
-        bool resetPowerupUI = true;
-
         if (twinFire)
         {
             twinFireTimer -= Time.deltaTime;
-
-            //Update data for powerup ui
-            powerupBar.Time = twinFireTimer;
-            powerupBar.MaxTime = maxTwinFireTimer;
-            resetPowerupUI = false;
         }
         twinFire = twinFireTimer > 0;
 
@@ -271,16 +261,24 @@ public class PlayerShip : ColoredObj
         {
             superChargeTimer -= Time.deltaTime;
             DeactivateSuperCharge();
-
-            //Update data for powerup ui
-            powerupBar.Time = superChargeTimer;
-            powerupBar.MaxTime = maxSuperChargeTimer;
-            resetPowerupUI = false;
         }
 
-        if (resetPowerupUI)
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (activeShield != null)
         {
-            powerupBar.ResetPowerup();
+            shieldBar.Time = activeShield.GetComponent<Shield>().Charges;
+            shieldBar.MaxTime = activeShield.GetComponent<Shield>().MaxCharges;
         }
-	}
+        twinFireBar.Time = twinFireTimer;
+        superChargeBar.Time = superChargeTimer;
+
+        //Update UI bars
+        shieldBar.gameObject.SetActive(shieldBar.Time > 0 ? true : false);
+        superChargeBar.gameObject.SetActive(superChargeBar.Time > 0 ? true : false);
+        twinFireBar.gameObject.SetActive(twinFireBar.Time > 0 ? true : false);
+    }
 }
