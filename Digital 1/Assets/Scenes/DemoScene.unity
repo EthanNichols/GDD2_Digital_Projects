@@ -652,6 +652,18 @@ PrefabInstance:
       propertyPath: powerupBar
       value: 
       objectReference: {fileID: 739126310}
+    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
+      propertyPath: superChargeSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 76e650047d12a4d48ad6fd12a329d250,
+        type: 3}
+    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
+      propertyPath: twinFireSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 93e2d14a43ad929489503d4cbd41f53f,
+        type: 3}
     - target: {fileID: 3606396754197552551, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
       propertyPath: m_LocalPosition.x
