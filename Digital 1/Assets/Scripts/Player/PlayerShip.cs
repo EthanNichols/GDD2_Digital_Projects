@@ -10,10 +10,13 @@ public class PlayerShip : ColoredObj
 	[SerializeField]
 	private float fireDelay = default;
 
+    //UI Elements
     [SerializeField]
     private HealthBar healthBar;
     [SerializeField]
     private ColorIndicator colorIndicator;
+    [SerializeField]
+    private PowerupBar powerupBar;
 
 	private SphereCollider sphereCollider;
 	private Rigidbody rigidbody;
@@ -48,6 +51,11 @@ public class PlayerShip : ColoredObj
     private float maxSuperChargeTimer;
     private ColorState preSCColorState;
 
+    //Temporary sprites for powerups, will change when powerups are more fleshed out
+    [SerializeField]
+    private Sprite superChargeSprite;
+    [SerializeField]
+    private Sprite twinFireSprite;
 
     public bool TwinFire
     {
@@ -197,6 +205,9 @@ public class PlayerShip : ColoredObj
     {
         twinFire = true;
         twinFireTimer = maxTwinFireTimer;
+
+        powerupBar.Sprite = twinFireSprite;
+        powerupBar.MaxTime = maxTwinFireTimer;
     }
 
     public void ActivateSuperCharge()
@@ -208,6 +219,9 @@ public class PlayerShip : ColoredObj
             preSCColorState = currentState;
             ColorSwitch(ColorState.Rainbow);
         }
+
+        powerupBar.Sprite = superChargeSprite;
+        powerupBar.MaxTime = maxSuperChargeTimer;
     }
 
     private void DeactivateSuperCharge()
@@ -240,14 +254,33 @@ public class PlayerShip : ColoredObj
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
 
+        bool resetPowerupUI = true;
+
         if (twinFire)
+        {
             twinFireTimer -= Time.deltaTime;
+
+            //Update data for powerup ui
+            powerupBar.Time = twinFireTimer;
+            powerupBar.MaxTime = maxTwinFireTimer;
+            resetPowerupUI = false;
+        }
         twinFire = twinFireTimer > 0;
 
         if (superCharge)
         {
             superChargeTimer -= Time.deltaTime;
             DeactivateSuperCharge();
+
+            //Update data for powerup ui
+            powerupBar.Time = superChargeTimer;
+            powerupBar.MaxTime = maxSuperChargeTimer;
+            resetPowerupUI = false;
+        }
+
+        if (resetPowerupUI)
+        {
+            powerupBar.ResetPowerup();
         }
 	}
 }
