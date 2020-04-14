@@ -25,7 +25,7 @@ public class Enemy : ColoredObj
 	/// <summary>
 	/// Change in <see cref="Speed"/> per tick
 	/// </summary>
-	public float acceleration;
+	public float fAcceleration;
 
 	public float directionRandomness = 0.0f;
 
@@ -35,7 +35,7 @@ public class Enemy : ColoredObj
     //[Header("Rotation Movement")]
     //public float angularVelocity;
 
-    private void Start()
+    protected virtual void Start()
 	{
 		transform.forward = movementDirection;
 		transform.Rotate(Vector3.up, Random.Range(-directionRandomness, directionRandomness));
@@ -48,7 +48,7 @@ public class Enemy : ColoredObj
 
 	private void Update()
 	{
-		speed += acceleration * Time.deltaTime;
+		speed += fAcceleration * Time.deltaTime;
 		speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
 		//transform.Rotate(Vector3.up, angularVelocity * Time.deltaTime);
 

@@ -31,14 +31,14 @@ public class EnemySpawner : MonoBehaviour
 	/// <summary>
 	/// Spawn the <see cref="enemyPrefab"/> in the <see cref="spawnRect"/>
 	/// </summary>
-	private void SpawnEnemy()
+	public virtual void SpawnEnemy()
 	{
 		Enemy newEnemy = Instantiate(enemyPrefab);
 		newEnemy.transform.position = new Vector3(spawnRect.x + Random.Range(-spawnRect.width, spawnRect.width) * 0.5f, 0.0f, spawnRect.y + Random.Range(-spawnRect.height, spawnRect.height) * 0.5f);
 	}
 
 
-	void Update()
+	protected virtual void Update()
 	{
 		timeSinceLastSpawn += Time.deltaTime;
 
