@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class FollowingEnemyManager : EnemySpawner
 {
-	new FollowingEnemy enemyPrefab;
-
 	//The boid prefab, and list of boids in the scene
 	public List<GameObject> boids = new List<GameObject>();
 
@@ -23,25 +21,12 @@ public class FollowingEnemyManager : EnemySpawner
 		{
 			target = FindObjectOfType<PlayerShip>().transform;
 		}
-
-		//If there are no boids in the list create a random amount of boids
-		if (boids.Count == 0)
-		{
-			CreateBoids(Random.Range(8, 10));
-		}
-		else
-		{
-			//Set all of the boids to have this as their manager
-			foreach (GameObject boid in boids)
-			{
-				boid.GetComponent<FollowingEnemy>().manager = this;
-			}
-		}
 	}
 
 	// Update is called once per frame
-	void Update()
+	protected override void Update()
 	{
+		base.Update();
 
 		//Calculate information about the flock
 		BoidCenter();
@@ -59,11 +44,21 @@ public class FollowingEnemyManager : EnemySpawner
 
 	private void BoidCenter()
 	{
+		if (boids.Count == 0)
+		{
+			return;
+		}
+
 		Vector3 totalPosition = Vector3.zero;
 
 		//Get the sum of all of the boids
 		foreach (GameObject getBoid in boids)
 		{
+			if (getBoid == null)
+			{
+				continue;
+			}
+
 			totalPosition += getBoid.transform.position;
 		}
 
@@ -80,6 +75,11 @@ public class FollowingEnemyManager : EnemySpawner
 		//Get the direction all of the boids are moving in
 		foreach (GameObject getBoid in boids)
 		{
+			if (getBoid == null)
+			{
+				continue;
+			}
+
 			totalDirection += getBoid.GetComponent<FollowingEnemy>().velocity;
 		}
 
@@ -104,17 +104,20 @@ public class FollowingEnemyManager : EnemySpawner
 		return target.position;
 	}
 
-	private void CreateBoids(int amount)
+	public override void SpawnEnemy()
 	{
-		//Create a new boid and add it the list
-		for (int i = 0; i < amount; i++)
+		Vector3 spawnPos = new Vector3(transform.position.x + Random.Range(spawnRect.x - spawnRect.width, spawnRect.width) * 0.5f, transform.position.z, transform.position.z + Random.Range(spawnRect.y - spawnRect.height, spawnRect.height) * 0.5f);
+
+		if (Vector3.Distance(target.position, spawnPos) < 5.0f)
 		{
-			GameObject newBoid = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity).gameObject;
-			newBoid.transform.position = new Vector3(transform.position.x + Random.Range(-20, 20), transform.position.y, transform.position.z + Random.Range(-20, 20));
-
-			newBoid.GetComponent<FollowingEnemy>().manager = this;
-
-			boids.Add(newBoid);
+			return;
 		}
+
+		GameObject newBoid = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity).gameObject;
+		newBoid.transform.position = spawnPos;
+
+		newBoid.GetComponent<FollowingEnemy>().manager = this;
+
+		boids.Add(newBoid);
 	}
 }

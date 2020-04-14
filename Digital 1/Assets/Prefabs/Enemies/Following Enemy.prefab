@@ -106,13 +106,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  colorRef: []
+  colorRef:
+  - {fileID: 2100000, guid: e3cf5d8b75abd2b47845e3a672eaceb6, type: 2}
+  - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
+  - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
+  - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
+  colors: []
+  currTime: 0
   movementDirection: {x: 0, y: 0, z: 0}
   scoreValue: 10
   speed: 0
   maxSpeed: 10
   fAcceleration: 0
   directionRandomness: 0
+  powerupRef: {fileID: 0}
   manager: {fileID: 0}
   mass: 1
   seperateWeight: 1

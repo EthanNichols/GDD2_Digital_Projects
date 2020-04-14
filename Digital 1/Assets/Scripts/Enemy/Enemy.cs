@@ -35,7 +35,7 @@ public class Enemy : ColoredObj
     //[Header("Rotation Movement")]
     //public float angularVelocity;
 
-    private void Start()
+    protected virtual void Start()
 	{
 		transform.forward = movementDirection;
 		transform.Rotate(Vector3.up, Random.Range(-directionRandomness, directionRandomness));

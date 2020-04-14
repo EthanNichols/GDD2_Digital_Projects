@@ -26,8 +26,10 @@ public class FollowingEnemy : Enemy
 
 
 	// Use this for initialization
-	void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		//Set the position to the current position
 		position = transform.position;
 
@@ -169,6 +171,11 @@ public class FollowingEnemy : Enemy
 			}
 		}
 
+		if (closest == null)
+		{
+			return desired;
+		}
+
 		//Steer the vehicles away from each other
 		if (Vector3.Distance(transform.position, closest.transform.position) < 5)
 		{
@@ -203,5 +210,12 @@ public class FollowingEnemy : Enemy
 	private Vector3 Alignment()
 	{
 		return manager.avgDirection;
+	}
+
+	private void OnDestroy()
+	{
+		base.DestroyShip();
+
+		manager.boids.Remove(gameObject);
 	}
 }
