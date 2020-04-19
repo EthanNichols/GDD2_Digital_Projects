@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Shared;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,6 +26,7 @@ public class SceneSwitch : MonoBehaviour
     public void GotoGame()
     {
         SceneManager.LoadScene(gamePath);
+        ScoreManager.Instance.ResetScore();
     }
 
     public void GotoGameOver()

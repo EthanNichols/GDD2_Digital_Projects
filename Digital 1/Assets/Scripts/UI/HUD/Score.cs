@@ -1,26 +1,16 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Shared;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
+    //If you want to edit the score, use ScoreManager.Instance
     private int points;
+
     [SerializeField] private string label = "Score";
     [SerializeField] private Text text;
-
-    public int Points
-    {
-        get
-        {
-            return points;
-        }
-        set
-        {
-            points = value;
-            UpdateScore();
-        }
-    }
 
     public string Label
     {
@@ -31,7 +21,6 @@ public class Score : MonoBehaviour
         set
         {
             label = value;
-            UpdateScore();
         }
     }
 
@@ -47,8 +36,12 @@ public class Score : MonoBehaviour
 
     }
 
-    private void UpdateScore()
+    /// <summary>
+    /// Pulls score from ScoreManager Singleton and updates the UI accordingly
+    /// </summary>
+    public void UpdateScore()
     {
+        points = ScoreManager.Instance.GetScore;
         text.text = label + ": " + points;
     }
 }
