@@ -9,6 +9,8 @@ public class Score : MonoBehaviour
     //If you want to edit the score, use ScoreManager.Instance
     private int points;
 
+    private int sessionHighScore;
+
     [SerializeField] private string label = "Score";
     [SerializeField] private Text text;
 
@@ -43,5 +45,7 @@ public class Score : MonoBehaviour
     {
         points = ScoreManager.Instance.GetScore;
         text.text = label + ": " + points;
+        sessionHighScore = ScoreManager.Instance.GetSessionHighScore;
+
     }
 }
