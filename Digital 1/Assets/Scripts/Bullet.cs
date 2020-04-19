@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Shared;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Bullet : ColoredObj
 	private Vector3 defaultBulletVelocity = Vector3.forward;
 
     [SerializeField]
-    private float bulletSpeed = -0.25f;
+    private float bulletSpeed;
 
     [SerializeField]
     private float maxLifeTime = 5.0f;
@@ -30,8 +31,9 @@ public class Bullet : ColoredObj
 	}
 
 	// Start is called before the first frame update
-	void Start()
+	public override void Start()
 	{
+        base.Start();
 		if (velocity == null || velocity.sqrMagnitude == 0)
 		{
 			velocity = defaultBulletVelocity;
@@ -49,8 +51,9 @@ public class Bullet : ColoredObj
         Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
         if (collidedEnemy != null)
         {
-            if (collidedEnemy.CurrentState == this.currentState)
+            if (collidedEnemy.CurrentState == this.currentState || ColorState.Rainbow == this.currentState)
             {
+                ScoreManager.Instance.ChangeScoreBy(collidedEnemy.ScoreValue);
                 collidedEnemy.DestroyShip();
             }
 
@@ -65,8 +68,9 @@ public class Bullet : ColoredObj
 	}
 
     // non-physics update
-    void Update()
+    public override void Update()
     {
+        base.Update();
         currLifeTime -= Time.deltaTime;
         if (currLifeTime <= 0)
         {

@@ -10,24 +10,83 @@ public class PlayerShip : ColoredObj
 	[SerializeField]
 	private float fireDelay = default;
 
-	private SphereCollider sphereCollider;
+    //UI Elements
+    [SerializeField]
+    private HealthBar healthBar;
+    [SerializeField]
+    private ColorIndicator colorIndicator;
+    [SerializeField]
+    private PowerupBar twinFireBar;
+    [SerializeField]
+    private PowerupBar superChargeBar;
+    [SerializeField]
+    private PowerupBar shieldBar;
+
+    private SphereCollider sphereCollider;
 	private Rigidbody rigidbody;
 
 	private float fireTimer;
 	private bool canFire;
 
-	void Start()
+    public bool IsDead
+    {
+        get
+        {
+            return healthBar.Health <= 0;
+        }
+    }
+
+    // powerup flags
+    private bool twinFire = false;
+    private float twinFireTimer;
+
+    private float twinFireAngle = 15;
+
+    [SerializeField]
+    private float maxTwinFireTimer;
+
+    [SerializeField]
+    private GameObject shieldRef;
+    private GameObject activeShield; 
+
+    private bool superCharge = false;
+    private float superChargeTimer;
+    [SerializeField]
+    private float maxSuperChargeTimer;
+    private ColorState preSCColorState;
+
+    public bool TwinFire
+    {
+        set
+        {
+            twinFire = value;
+        }
+    }
+
+    public bool SuperCharge
+    {
+        set
+        {
+            twinFire = value;
+        }
+    }
+
+	public override void Start()
 	{
+        base.Start();
 		sphereCollider = GetComponent<SphereCollider>();
 		rigidbody = GetComponent<Rigidbody>();
 
 		fireTimer = 0;
 		canFire = true;
-	}
 
-	[SerializeField]
+        twinFireBar.MaxTime = maxTwinFireTimer;
+        superChargeBar.MaxTime = maxSuperChargeTimer;
+    }
+
+    [SerializeField]
 	private GameObject bulletPrefab;
-
+    
 	/// <summary>
 	/// Handle/Hold Firing logic.
 	/// </summary>
@@ -35,20 +94,21 @@ public class PlayerShip : ColoredObj
 	{
 		if (!canFire || ColorState.Neutral == currentState)
 			return;
-
-		// Get Mouse Position, rotate ship to that position
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.y = 0;
-
-        Vector3 tempPosition = transform.position;
-        tempPosition.y = 0;
-
-        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
         
         // spawn bullet, set the veloctiy based on ship
         Vector3 bulletSpawnPos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) - transform.forward;
         GameObject newBullet = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, bulletPrefab.transform.rotation.eulerAngles.z));
         newBullet.GetComponent<Bullet>().Velocity = transform.forward;
+
+        if (twinFire)
+        {
+            // spawn bullet, set the veloctiy based on ship
+            GameObject bulletTwo = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + twinFireAngle, bulletPrefab.transform.rotation.eulerAngles.z));
+            GameObject bulletThree = GameObject.Instantiate(bulletPrefab, bulletSpawnPos, Quaternion.Euler(bulletPrefab.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - twinFireAngle, bulletPrefab.transform.rotation.eulerAngles.z));
+            bulletTwo.GetComponent<Bullet>().Velocity = Quaternion.AngleAxis(twinFireAngle, Vector3.up) * transform.forward;
+            bulletThree.GetComponent<Bullet>().Velocity = Quaternion.AngleAxis(-twinFireAngle, Vector3.up) * transform.forward;
+            
+        }
 
         // start the timer based on delay
         fireTimer = fireDelay;
@@ -63,8 +123,8 @@ public class PlayerShip : ColoredObj
 		Vector3 movement = Vector3.zero;
 		movement.x = Input.GetAxis("Horizontal");
 		movement.z = Input.GetAxis("Vertical");
-		movement.Normalize();
 		rigidbody.velocity = movement * moveSpeed;
+		rigidbody.angularVelocity = Vector3.zero;
 
 		// shooting
 		if (Input.GetAxis("Fire1") == 1.0f)
@@ -73,27 +133,32 @@ public class PlayerShip : ColoredObj
 		}
 
 		// changing color
-        if (Input.GetAxis("Mouse ScrollWheel") > 0) 
+        if (!superCharge)
         {
-            if ((int)currentState < 3)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0) 
             {
-                ColorSwitch(currentState + 1);
+                if ((int)currentState < 3)
+                {
+                    ColorSwitch(currentState + 1);
+                }
+                else 
+                {
+                    ColorSwitch((ColorState)1);
+                }
+                colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
             }
-            else 
-            {
-                ColorSwitch((ColorState)1);
-            }
-        }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0) 
-        {
-            if ((int)currentState > 1)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0) 
             {
-                ColorSwitch(currentState - 1); ;
-            }
-            else
-            {
-                ColorSwitch((ColorState)3);
+                if ((int)currentState > 1)
+                {
+                    ColorSwitch(currentState - 1); ;
+                }
+                else
+                {
+                    ColorSwitch((ColorState)3);
+                }
+                colorIndicator.FillColor = gameObject.GetComponent<MeshRenderer>().material.color;
             }
         }
 	}
@@ -103,6 +168,7 @@ public class PlayerShip : ColoredObj
     /// </summary>
     void GameOver()
     {
+        healthBar.Health = 0;
         Destroy(gameObject);
     }
 
@@ -119,19 +185,100 @@ public class PlayerShip : ColoredObj
         }
     }
 
+    // activate shield. or increase charge
+    public void DeployShield()
+    {
+        if (null == activeShield)
+        {
+            activeShield = Instantiate(shieldRef, transform.position, Quaternion.identity);
+            activeShield.transform.parent = gameObject.transform;
+        }
+        else
+            activeShield.GetComponent<Shield>().IncreaseShieldCharge();
+
+    }
+
+    void DestroyShield()
+    {
+        activeShield.GetComponent<Shield>().DecreaseShieldCharge();
+    }
+
+    public void ActivateTwinFire()
+    {
+        twinFire = true;
+        twinFireTimer = maxTwinFireTimer;
+    }
+
+    public void ActivateSuperCharge()
+    {
+        superCharge = true;
+        superChargeTimer = maxSuperChargeTimer;
+        if (currentState != ColorState.Rainbow)
+        {
+            preSCColorState = currentState;
+            ColorSwitch(ColorState.Rainbow);
+        }
+    }
+
+    private void DeactivateSuperCharge()
+    {
+        superCharge = superChargeTimer > 0;
+        if (!superCharge)
+            ColorSwitch(preSCColorState);
+    }
+
     /// <summary>
     /// Handle Inputs, check delays between firing.
     /// </summary>
-    void FixedUpdate()
+    public override void Update()
 	{
-		// Fire Delay Logic
-		if (!canFire)
+        base.Update();
+
+        HandleInput();
+
+        // Get Mouse Position, rotate ship to that position
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.y = 0;
+
+        Vector3 tempPosition = transform.position;
+        tempPosition.y = 0;
+
+        transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
+
+
+        // Fire Delay Logic
+        if (!canFire)
 			fireTimer -= Time.deltaTime;
 		canFire = fireTimer <= 0;
-	}
 
-    void Update() 
+        if (twinFire)
+        {
+            twinFireTimer -= Time.deltaTime;
+        }
+        twinFire = twinFireTimer > 0;
+
+        if (superCharge)
+        {
+            superChargeTimer -= Time.deltaTime;
+            DeactivateSuperCharge();
+        }
+
+        UpdateUI();
+    }
+
+    private void UpdateUI()
     {
-        HandleInput();
+        if (activeShield != null)
+        {
+            shieldBar.Time = activeShield.GetComponent<Shield>().Charges;
+            shieldBar.MaxTime = activeShield.GetComponent<Shield>().MaxCharges;
+        }
+        twinFireBar.Time = twinFireTimer;
+        superChargeBar.Time = superChargeTimer;
+
+        //Update UI bars
+        shieldBar.gameObject.SetActive(shieldBar.Time > 0 ? true : false);
+        superChargeBar.gameObject.SetActive(superChargeBar.Time > 0 ? true : false);
+        twinFireBar.gameObject.SetActive(twinFireBar.Time > 0 ? true : false);
     }
 }

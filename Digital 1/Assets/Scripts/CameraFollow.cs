@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
-	private bool positionInitialized = false;
-
 	[SerializeField]
 	private new Camera camera;
 
@@ -14,61 +12,31 @@ public class CameraFollow : MonoBehaviour
 	private GameObject playerObj;
 
 	[SerializeField]
+	[Tooltip("This adjusts the camera zoom.")]
 	private float scale = .50f;
-
-	//[SerializeField]
-	//private float maxMouseDeltaFromCenter = 100f;
 
 	private float initialSize;
 
-	//[SerializeField]
-	//private float yOffset = -250f;
-
-	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		camera = gameObject.GetComponent<Camera>();
 		// Ensure Camera is orthographic
 		camera.orthographic = true;
 		initialSize = camera.orthographicSize;
+		camera.orthographicSize = initialSize * scale;
 		if (playerObj == null)
 		{
 			playerObj = GameObject.FindGameObjectWithTag("Player");
 		}
 		Debug.Assert(playerObj != null);
-		//SetInitialPos();
-    }
-
-    // Update is called once per frame
-    void LateUpdate()
-	{
-		camera.orthographicSize = initialSize * scale;
-		//Debug.Log(Input.mousePosition);
-		//if (!Input.GetKey(KeyCode.LeftShift))
-			transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
-		//else
-		//{
-		//	Vector3 delta = camera.ScreenToWorldPoint(Input.mousePosition) - playerObj.transform.position;
-		//	delta *= .0005f;
-		//	if (delta.magnitude > maxMouseDeltaFromCenter)
-		//		delta = delta.normalized * maxMouseDeltaFromCenter;
-
-		//	transform.position = camera.WorldToScreenPoint(delta);
-		//}
+		transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
 	}
 
-	public void SetInitialPos()
+	void LateUpdate()
 	{
-		if (!positionInitialized)
-		{
-			//transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
-			camera.orthographicSize = initialSize * scale;
-			positionInitialized = true;
-			//Debug.Log("SetInit Done");
-		}
-		else
-		{
-			Debug.LogWarning("CameraFollow.SetInitialPos was already called.");
-		}
+		// In case scale has changed, update orthographicSize
+		camera.orthographicSize = initialSize * scale;
+		// Update position
+		transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
 	}
 }
