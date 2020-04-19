@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Shared;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,8 +48,9 @@ public class Score : MonoBehaviour
 
     }
 
-    private void UpdateScore()
+    public void UpdateScore()
     {
+        points = ScoreManager.Instance.GetScore;
         text.text = label + ": " + points;
     }
 }

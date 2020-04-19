@@ -21,6 +21,8 @@ public class PlayerShip : ColoredObj
     private PowerupBar superChargeBar;
     [SerializeField]
     private PowerupBar shieldBar;
+    [SerializeField]
+    private Score scoreValue;
 
     private SphereCollider sphereCollider;
 	private Rigidbody rigidbody;
@@ -280,5 +282,7 @@ public class PlayerShip : ColoredObj
         shieldBar.gameObject.SetActive(shieldBar.Time > 0 ? true : false);
         superChargeBar.gameObject.SetActive(superChargeBar.Time > 0 ? true : false);
         twinFireBar.gameObject.SetActive(twinFireBar.Time > 0 ? true : false);
+
+        scoreValue.UpdateScore();
     }
 }

@@ -112,10 +112,16 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 346964a8da6438a4e85d504019f3b48e, type: 2}
   - {fileID: 2100000, guid: 1ccb9a0d9878cda4d85301664b7fa8c9, type: 2}
   - {fileID: 2100000, guid: 2fd1d1c38c93deb448476714e3e35fa0, type: 2}
-  moveSpeed: 400
+  colors: []
+  currTime: 0
+  moveSpeed: 25
   fireDelay: 0.3
   healthBar: {fileID: 0}
   colorIndicator: {fileID: 0}
+  twinFireBar: {fileID: 0}
+  superChargeBar: {fileID: 0}
+  shieldBar: {fileID: 0}
+  scoreValue: {fileID: 0}
   maxTwinFireTimer: 10
   shieldRef: {fileID: 4143690774997680629, guid: 39331386ff24388469b94a6bc37737b0,
     type: 3}
@@ -130,9 +136,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606396754197552546}
   serializedVersion: 2
-  m_Mass: 5
-  m_Drag: 5
-  m_AngularDrag: 1
+  m_Mass: 10
+  m_Drag: 10
+  m_AngularDrag: 10
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
