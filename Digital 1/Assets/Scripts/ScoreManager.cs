@@ -9,11 +9,14 @@ namespace Assets.Scripts.Shared
 {
     class ScoreManager:Singleton<ScoreManager>
     {
+        private int sessionHighScore = 0;
+
         [SerializeField]
         int score = 0;
 
         public int GetScore { get => score; }
-        
+        public int GetSessionHighScore { get => sessionHighScore; set => sessionHighScore = value; }
+
         /// <summary>
         /// Sets score back to 0
         /// </summary>
@@ -35,6 +38,18 @@ namespace Assets.Scripts.Shared
             {
                 score = 0;
             }
+
+            UpdateHighScore();
+        }
+
+        private bool UpdateHighScore()
+        {
+            if (score > sessionHighScore)
+            {
+                sessionHighScore = score;
+                return true;
+            }
+            return false;
         }
 
 
