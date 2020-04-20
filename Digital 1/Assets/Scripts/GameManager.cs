@@ -13,7 +13,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        string[] joysticks = Input.GetJoystickNames();
+        for (int i = 0; i < joysticks.Length; i++)
+        {
+            if (joysticks[i].Length > 0)
+                UpdatePlayerJoyStick(true);
+        }
     }
 
     // Update is called once per frame
@@ -29,5 +34,10 @@ public class GameManager : MonoBehaviour
         {
             sceneSwitcher.GotoGameOver();
         }
+    }
+
+    void UpdatePlayerJoyStick(bool value)
+    {
+        player.UsingGamepad = value;
     }
 }
