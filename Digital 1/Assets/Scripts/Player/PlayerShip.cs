@@ -21,6 +21,8 @@ public class PlayerShip : ColoredObj
     private PowerupBar superChargeBar;
     [SerializeField]
     private PowerupBar shieldBar;
+    [SerializeField]
+    private Score scoreValue;
 
     private SphereCollider sphereCollider;
     private Rigidbody rigidbody;
@@ -54,6 +56,8 @@ public class PlayerShip : ColoredObj
     [SerializeField]
     private float maxSuperChargeTimer;
     private ColorState preSCColorState;
+
+    private ParticleSystem ps_flames;
 
     public bool TwinFire
     {
@@ -92,6 +96,7 @@ public class PlayerShip : ColoredObj
 
         twinFireBar.MaxTime = maxTwinFireTimer;
         superChargeBar.MaxTime = maxSuperChargeTimer;
+        ps_flames = GetComponentInChildren<ParticleSystem>();
     }
 
     [SerializeField]
@@ -291,6 +296,16 @@ public class PlayerShip : ColoredObj
             transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
         }
 
+        if(rigidbody.velocity.magnitude > 1)
+        {
+            ps_flames.Play();
+        }
+        else
+        {
+            ps_flames.Stop();
+        }
+
+
         // Fire Delay Logic
         if (!canFire)
             fireTimer -= Time.deltaTime;
@@ -325,5 +340,7 @@ public class PlayerShip : ColoredObj
         shieldBar.gameObject.SetActive(shieldBar.Time > 0 ? true : false);
         superChargeBar.gameObject.SetActive(superChargeBar.Time > 0 ? true : false);
         twinFireBar.gameObject.SetActive(twinFireBar.Time > 0 ? true : false);
+
+        scoreValue.UpdateScore();
     }
 }

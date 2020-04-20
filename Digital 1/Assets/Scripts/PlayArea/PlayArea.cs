@@ -16,11 +16,13 @@ public class PlayArea : MonoBehaviour
 	/// <summary>
 	/// Reference to the main camera
 	/// </summary>
+	[SerializeField]
 	private new Camera camera;
 
 	/// <summary>
-	/// Get the size of a 2d (XZ) slice that is visible to the main camera
+	/// A 2D rectangle defining the play area.
 	/// </summary>
+	/// <remarks>Orig Comment: "Get the size of a 2d (XZ) slice that is visible to the main camera"</remarks>
 	public static Rect Rect
 	{
 		get
@@ -38,6 +40,9 @@ public class PlayArea : MonoBehaviour
 
 		CalculateSize();
 		CreateBounds();
+
+		//FindObjectOfType<CameraFollow>().SetInitialPos();
+		Debug.Log(rect);
 	}
 
 
@@ -52,7 +57,14 @@ public class PlayArea : MonoBehaviour
 		}
 		if (camera == null)
 		{
+			Debug.LogWarning("PlayArea.camera was null at unexpected time. Aborting CalculateSize.");
 			return;
+		}
+
+		// Check cam's orientation
+		if (camera.transform.forward != Vector3.down)
+		{
+			camera.transform.forward = Vector3.down;
 		}
 
 		// Ensure that the camera is above the XZ axis
