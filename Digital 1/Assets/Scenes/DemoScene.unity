@@ -812,6 +812,16 @@ PrefabInstance:
       objectReference: {fileID: 739126312}
     - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
         type: 3}
+      propertyPath: moveSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
+      propertyPath: inputThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3606396754197552547, guid: 014a640eb8af2c845987f56cfee60d1e,
+        type: 3}
       propertyPath: scoreValue
       value: 
       objectReference: {fileID: 1319796992}
@@ -5873,7 +5883,7 @@ MonoBehaviour:
   - {fileID: 5521555916644125540, guid: 14c40bb54a8b0a44cb3aff6f040a53dd, type: 3}
   - {fileID: 5521555916644125540, guid: bbe82925ce5b6ac40a6eb014fee4f328, type: 3}
   - {fileID: 5521555916644125540, guid: f7bf910b85d77c24cbe180a735ee9047, type: 3}
-  powerupSpawnRate: 1
+  powerupSpawnRate: 0.5
 --- !u!4 &2103122004
 Transform:
   m_ObjectHideFlags: 0
