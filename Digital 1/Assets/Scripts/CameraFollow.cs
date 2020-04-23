@@ -34,9 +34,12 @@ public class CameraFollow : MonoBehaviour
 
 	void LateUpdate()
 	{
-		// In case scale has changed, update orthographicSize
-		camera.orthographicSize = initialSize * scale;
-		// Update position
-		transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
-	}
+        if (playerObj != null && camera != null)
+        {
+            // In case scale has changed, update orthographicSize
+            camera.orthographicSize = initialSize * scale;
+            // Update position
+            transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
+        }
+    }
 }
