@@ -53,3 +53,8 @@ MonoBehaviour:
     y: 13.41
     width: 3.63
     height: 11.29
+  powerupList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  powerupSpawnRate: 0

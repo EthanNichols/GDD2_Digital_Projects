@@ -53,6 +53,11 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  powerupList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  powerupSpawnRate: 0.6
   boids: []
   target: {fileID: 0}
   avgDirection: {x: 0, y: 0, z: 0}
