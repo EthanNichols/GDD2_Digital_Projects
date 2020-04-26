@@ -12,7 +12,10 @@ public class PlayArea : MonoBehaviour
 	[SerializeField]
 	private GameObject background = null;
 
-	private static Rect rect;
+	public Vector2 playAreaSize;
+
+
+	public static Rect rect;
 	/// <summary>
 	/// Reference to the main camera
 	/// </summary>
@@ -38,7 +41,9 @@ public class PlayArea : MonoBehaviour
 	{
 		camera = Camera.main;
 
-		CalculateSize();
+		rect.size = playAreaSize * 0.5f;
+
+		//CalculateSize();
 		CreateBounds();
 
 		//FindObjectOfType<CameraFollow>().SetInitialPos();
@@ -116,19 +121,19 @@ public class PlayArea : MonoBehaviour
 	private void CreateBounds()
 	{
 		BoxCollider topBound = gameObject.AddComponent<BoxCollider>();
-		topBound.center = new Vector3(0.0f, 0.0f, Rect.y + Rect.height);
-		topBound.size = new Vector3(rect.width, 1.0f, 0.0f);
+		topBound.center = new Vector3(0.0f, 0.0f, Rect.height);
+		topBound.size = new Vector3(rect.width * 2.0f, 1.0f, 0.0f);
 
 		BoxCollider bottomBound = gameObject.AddComponent<BoxCollider>();
-		bottomBound.center = new Vector3(0.0f, 0.0f, Rect.y);
-		bottomBound.size = new Vector3(rect.width, 1.0f, 0.0f);
+		bottomBound.center = new Vector3(0.0f, 0.0f, -rect.height);
+		bottomBound.size = new Vector3(rect.width * 2.0f, 1.0f, 0.0f);
 
 		BoxCollider rightBound = gameObject.AddComponent<BoxCollider>();
-		rightBound.center = new Vector3(Rect.x + Rect.width, 0.0f, 0.0f);
-		rightBound.size = new Vector3(0.0f, 1.0f, rect.height);
+		rightBound.center = new Vector3(Rect.width, 0.0f, 0.0f);
+		rightBound.size = new Vector3(0.0f, 1.0f, rect.height * 2.0f);
 
 		BoxCollider leftBound = gameObject.AddComponent<BoxCollider>();
-		leftBound.center = new Vector3(Rect.x, 0.0f, 0.0f);
-		leftBound.size = new Vector3(0.0f, 1.0f, rect.height);
+		leftBound.center = new Vector3(-rect.width, 0.0f, 0.0f);
+		leftBound.size = new Vector3(0.0f, 1.0f, rect.height * 2.0f);
 	}
 }
