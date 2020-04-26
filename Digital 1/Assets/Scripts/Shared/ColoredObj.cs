@@ -36,7 +36,7 @@ public class ColoredObj : MonoBehaviour
     /// Contains list of materials for color changing.
     /// </summary>
     [SerializeField]
-    private Material[] colorRef;
+    protected Material[] colorRef;
 
     public Color[] colors;
     public float currTime;
@@ -92,7 +92,7 @@ public class ColoredObj : MonoBehaviour
         UpdateMaterial();
     }
 
-    void UpdateMaterial()
+    public virtual void UpdateMaterial()
     {
 		// currentMaterial = colorRef?[(int)currentState] ?? currentMaterial; // I think Unity has null operator problems, not sure. If not, this is better.
         if (ColorState.Rainbow == currentState)
