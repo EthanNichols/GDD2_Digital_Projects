@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3629538633471383484
+--- !u!1 &6806045865287142139
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3629538633471383486}
-  - component: {fileID: 8910236705833909023}
+  - component: {fileID: 6806045865287142141}
+  - component: {fileID: 6806045865287142138}
   m_Layer: 0
-  m_Name: Duo Enemy Spawner
+  m_Name: Enemy Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3629538633471383486
+--- !u!4 &6806045865287142141
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3629538633471383484}
+  m_GameObject: {fileID: 6806045865287142139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.840541, y: -0.06502974, z: 0.8103331}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,31 +31,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8910236705833909023
+--- !u!114 &6806045865287142138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3629538633471383484}
+  m_GameObject: {fileID: 6806045865287142139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 846e9031fe70de748af85b2dc8cc7cd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b0299f5e543fab418149af4b51e752b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 6360357133485111794, guid: ea88f448496f561488ff220049b5e96f,
+  enemyPrefab: {fileID: 5369044053577666740, guid: 0c63609dd135b154692aec28467295b9,
     type: 3}
   spawnCount: 10000
-  timeBetweenSpawns: 1.25
-  spawnRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 80
-    height: 50
+  timeBetweenSpawns: 1
   powerupList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  powerupSpawnRate: 0.9
-  target: {fileID: 0}
+  - {fileID: 5521555916644125540, guid: 14c40bb54a8b0a44cb3aff6f040a53dd, type: 3}
+  - {fileID: 5521555916644125540, guid: bbe82925ce5b6ac40a6eb014fee4f328, type: 3}
+  - {fileID: 5521555916644125540, guid: f7bf910b85d77c24cbe180a735ee9047, type: 3}
+  powerupSpawnRate: 0.3
