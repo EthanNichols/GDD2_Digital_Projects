@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
         string[] joysticks = Input.GetJoystickNames();
         for (int i = 0; i < joysticks.Length; i++)
         {
-            //if (joysticks[i].Length > 0)
-                //UpdatePlayerJoyStick(true);
+            if (joysticks[i].Length > 0)
+                UpdatePlayerJoyStick(true);
         }
     }
 

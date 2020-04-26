@@ -89,12 +89,12 @@ public class DuoEnemy : Enemy
 
 	public bool BulletHit(ColorState color)
 	{
-		if (leftColor == color)
+		if (leftColor == color || color == ColorState.Rainbow)
 		{
 			leftColor = ColorState.Neutral;
 			UpdateMaterial();
 		}
-		else if (rightColor == color)
+		else if (rightColor == color || color == ColorState.Rainbow)
 		{
 			rightColor = ColorState.Neutral;
 			UpdateMaterial();
