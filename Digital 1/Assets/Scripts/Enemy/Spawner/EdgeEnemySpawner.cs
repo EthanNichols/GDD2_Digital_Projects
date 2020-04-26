@@ -37,6 +37,8 @@ public class EdgeEnemySpawner : EnemySpawner
 		newEnemy.movementDirection = -spawnDirection;
 		newEnemy.maxSpeed = 5.0f;
 		newEnemy.speed = 5.0f;
+
+        SetSpawn(newEnemy);
 	}
 
 
