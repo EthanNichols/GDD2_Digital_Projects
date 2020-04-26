@@ -17,7 +17,13 @@ public class CameraFollow : MonoBehaviour
 
 	private float initialSize;
 
-	void Start()
+    [Header("XZ Axis Variables")]
+    [SerializeField]
+    float xzPositionSmoothTime = .03f;
+    float newPosZ, newPosX;
+    Vector3 xzAxisCameraPosition;
+
+    void Start()
 	{
 		camera = gameObject.GetComponent<Camera>();
 		// Ensure Camera is orthographic
@@ -38,8 +44,19 @@ public class CameraFollow : MonoBehaviour
         {
             // In case scale has changed, update orthographicSize
             camera.orthographicSize = initialSize * scale;
-            // Update position
-            transform.position = new Vector3(playerObj.transform.position.x, transform.position.y, playerObj.transform.position.z);
+
+            CalculateLerpZXPosition();
+            gameObject.transform.position = xzAxisCameraPosition;
         }
     }
+
+
+    public void CalculateLerpZXPosition()
+    {
+        newPosZ = Mathf.Lerp(gameObject.transform.position.z, playerObj.transform.position.z, xzPositionSmoothTime);
+        newPosX = Mathf.Lerp(gameObject.transform.position.x, playerObj.transform.position.x, xzPositionSmoothTime);
+        
+        xzAxisCameraPosition = new Vector3(newPosX, transform.position.y, newPosZ);
+    }
 }
+
