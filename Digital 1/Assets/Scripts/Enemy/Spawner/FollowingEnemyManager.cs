@@ -106,6 +106,9 @@ public class FollowingEnemyManager : EnemySpawner
 
 	public override void SpawnEnemy()
 	{
+		spawnRect = PlayArea.Rect;
+		spawnRect.size *= 2.0f;
+
 		Vector3 spawnPos = new Vector3(transform.position.x + Random.Range(spawnRect.x - spawnRect.width, spawnRect.width) * 0.5f, transform.position.z, transform.position.z + Random.Range(spawnRect.y - spawnRect.height, spawnRect.height) * 0.5f);
 
 		if (Vector3.Distance(target.position, spawnPos) < 5.0f)

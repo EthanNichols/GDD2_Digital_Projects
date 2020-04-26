@@ -28,15 +28,23 @@ public class EnemySpawner : MonoBehaviour
 	/// </summary>
 	public Rect spawnRect;
 
+
+    [SerializeField] private GameObject[] powerupList;
+    [SerializeField] private float powerupSpawnRate;
+
 	/// <summary>
 	/// Spawn the <see cref="enemyPrefab"/> in the <see cref="spawnRect"/>
 	/// </summary>
 	public virtual void SpawnEnemy()
 	{
 		spawnRect = PlayArea.Rect;
+		spawnRect.size *= 2.0f;
 
 		Enemy newEnemy = Instantiate(enemyPrefab);
 		newEnemy.transform.position = new Vector3(spawnRect.x + Random.Range(-spawnRect.width, spawnRect.width) * 0.5f, 0.0f, spawnRect.y + Random.Range(-spawnRect.height, spawnRect.height) * 0.5f);
+
+        if (Random.value < powerupSpawnRate)
+			newEnemy.powerupRef = powerupList[(int) Mathf.Floor(Random.Range(0.0f, powerupList.Length - 0.001f))];  
 	}
 
 

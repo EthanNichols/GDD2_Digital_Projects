@@ -97,6 +97,7 @@ public class PlayerShip : ColoredObj
         twinFireBar.MaxTime = maxTwinFireTimer;
         superChargeBar.MaxTime = maxSuperChargeTimer;
         ps_flames = GetComponentInChildren<ParticleSystem>();
+        
     }
 
     [SerializeField]
@@ -296,13 +297,9 @@ public class PlayerShip : ColoredObj
             transform.rotation = Quaternion.LookRotation(tempPosition - mousePosition);
         }
 
-        if(rigidbody.velocity.magnitude > 1)
+        if(rigidbody.velocity.magnitude < 1f)
         {
             ps_flames.Play();
-        }
-        else
-        {
-            ps_flames.Stop();
         }
 
 

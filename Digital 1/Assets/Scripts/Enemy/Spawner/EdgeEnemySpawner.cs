@@ -14,13 +14,9 @@ public class EdgeEnemySpawner : EnemySpawner
 	/// </summary>
 	private float radius;
 
-	
-	[SerializeField] private GameObject[] powerupList;
-    [SerializeField] private float powerupSpawnRate;
 
 	private void Start()
 	{
-		radius = PlayArea.rect.size.magnitude * 1.2f;
 	}
 
 
@@ -29,6 +25,8 @@ public class EdgeEnemySpawner : EnemySpawner
 	/// </summary>
 	public override void SpawnEnemy()
 	{
+		radius = PlayArea.Rect.size.magnitude * 1.2f;
+
 		Enemy newEnemy = Instantiate(enemyPrefab);
 
 		Vector3 spawnDirection = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(-1.0f, 1.0f));
@@ -39,9 +37,6 @@ public class EdgeEnemySpawner : EnemySpawner
 		newEnemy.movementDirection = -spawnDirection;
 		newEnemy.maxSpeed = 5.0f;
 		newEnemy.speed = 5.0f;
-		
-		if (Random.value < powerupSpawnRate)
-			newEnemy.powerupRef = powerupList[(int) Mathf.Floor(Random.Range(0.0f, powerupList.Length - 0.001f))];  
 	}
 
 

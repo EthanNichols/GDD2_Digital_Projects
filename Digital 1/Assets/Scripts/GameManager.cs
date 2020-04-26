@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerShip player;
     [SerializeField] private SceneSwitch sceneSwitcher;
     [SerializeField] private GameObject[] enemySpawers;
+    [SerializeField] private Crosshair crosshair;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     void UpdatePlayerJoyStick(bool value)
     {
+        crosshair.Visible = value;
         player.UsingGamepad = value;
     }
 }
