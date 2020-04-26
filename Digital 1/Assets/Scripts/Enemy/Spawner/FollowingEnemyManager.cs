@@ -122,5 +122,6 @@ public class FollowingEnemyManager : EnemySpawner
 		newBoid.GetComponent<FollowingEnemy>().manager = this;
 
 		boids.Add(newBoid);
+        SetSpawn(newBoid.GetComponent<Enemy>());
 	}
 }

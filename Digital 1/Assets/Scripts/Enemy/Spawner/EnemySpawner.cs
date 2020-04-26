@@ -43,10 +43,15 @@ public class EnemySpawner : MonoBehaviour
 		Enemy newEnemy = Instantiate(enemyPrefab);
 		newEnemy.transform.position = new Vector3(spawnRect.x + Random.Range(-spawnRect.width, spawnRect.width) * 0.5f, 0.0f, spawnRect.y + Random.Range(-spawnRect.height, spawnRect.height) * 0.5f);
 
-        if (Random.value < powerupSpawnRate)
-			newEnemy.powerupRef = powerupList[(int) Mathf.Floor(Random.Range(0.0f, powerupList.Length - 0.001f))];  
+        SetSpawn(newEnemy);
 	}
 
+
+    protected void SetSpawn(Enemy newEnemy)
+    {
+        if (Random.value < powerupSpawnRate)
+			newEnemy.powerupRef = powerupList[(int) Mathf.Floor(Random.Range(0.0f, powerupList.Length - 0.001f))];  
+    }   
 
 	protected virtual void Update()
 	{
