@@ -6129,6 +6129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 0}
+  borderMat: {fileID: 2100000, guid: d5a38507f9cd5b142b521f8387145e1e, type: 2}
   playAreaSize: {x: -80, y: -40}
   camera: {fileID: 0}
 --- !u!4 &1660584748

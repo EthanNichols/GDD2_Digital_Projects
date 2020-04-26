@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class PlayArea : MonoBehaviour
 {
-	/// <summary>
-	/// TEMPORARY variable for debugging purposes
-	/// Can also be kept to ensure there is a background
-	/// </summary>
-	[SerializeField]
-	private GameObject background = null;
+    /// <summary>
+    /// TEMPORARY variable for debugging purposes
+    /// Can also be kept to ensure there is a background
+    /// </summary>
+    [SerializeField]
+    private GameObject background = null;
+    [SerializeField]
+    private Material borderMat;
 
 	public Vector2 playAreaSize;
 
@@ -136,4 +138,25 @@ public class PlayArea : MonoBehaviour
 		leftBound.center = new Vector3(-rect.width, 0.0f, 0.0f);
 		leftBound.size = new Vector3(0.0f, 1.0f, rect.height * 2.0f);
 	}
+
+    private void OnRenderObject()
+    {
+        borderMat.SetPass(0);
+
+        GL.Begin(GL.LINES);
+
+        GL.Vertex(new Vector3(rect.x - rect.width, 0, rect.y - rect.height));
+        GL.Vertex(new Vector3(rect.x - rect.width, 0, rect.y + rect.height));
+
+        GL.Vertex(new Vector3(rect.x - rect.width, 0, rect.y + rect.height));
+        GL.Vertex(new Vector3(rect.x + rect.width, 0, rect.y + rect.height));
+
+        GL.Vertex(new Vector3(rect.x + rect.width, 0, rect.y + rect.height));
+        GL.Vertex(new Vector3(rect.x + rect.width, 0, rect.y - rect.height));
+
+        GL.Vertex(new Vector3(rect.x + rect.width, 0, rect.y - rect.height));
+        GL.Vertex(new Vector3(rect.x - rect.width, 0, rect.y - rect.height));
+
+        GL.End();
+    }
 }
