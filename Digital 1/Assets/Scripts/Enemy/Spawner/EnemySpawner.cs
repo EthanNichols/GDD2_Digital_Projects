@@ -33,6 +33,8 @@ public class EnemySpawner : MonoBehaviour
 	/// </summary>
 	public virtual void SpawnEnemy()
 	{
+		spawnRect = PlayArea.Rect;
+
 		Enemy newEnemy = Instantiate(enemyPrefab);
 		newEnemy.transform.position = new Vector3(spawnRect.x + Random.Range(-spawnRect.width, spawnRect.width) * 0.5f, 0.0f, spawnRect.y + Random.Range(-spawnRect.height, spawnRect.height) * 0.5f);
 	}

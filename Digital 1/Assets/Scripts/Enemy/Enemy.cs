@@ -53,11 +53,6 @@ public class Enemy : ColoredObj
 		//transform.Rotate(Vector3.up, angularVelocity * Time.deltaTime);
 
 		transform.position += transform.forward * speed * Time.deltaTime;
-
-		if (transform.position.magnitude > PlayArea.Rect.width * 0.65f)
-		{
-			Destroy(gameObject);
-		}
 	}
 
     public void DestroyShip() 

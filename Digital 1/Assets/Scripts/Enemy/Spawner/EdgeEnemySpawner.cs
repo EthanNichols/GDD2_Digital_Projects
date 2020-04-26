@@ -2,22 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EdgeEnemySpawner : MonoBehaviour
+public class EdgeEnemySpawner : EnemySpawner
 {
-	/// <summary>
-	/// Prefab of the enemy that this spawner spawns
-	/// </summary>
-	public Enemy enemyPrefab;
-
-	/// <summary>
-	/// The amount of enemies this spawner will spawn before being destroyed
-	/// </summary>
-	public int spawnCount;
-
-	/// <summary>
-	/// The time between enemy spawns
-	/// </summary>
-	public float timeBetweenSpawns;
 	/// <summary>
 	/// The time since the last enemy spawn
 	/// </summary>
@@ -34,14 +20,14 @@ public class EdgeEnemySpawner : MonoBehaviour
 
 	private void Start()
 	{
-		radius = PlayArea.Rect.width * 0.6f;
+		radius = PlayArea.rect.size.magnitude * 1.2f;
 	}
 
 
 	/// <summary>
 	/// Spawn the <see cref="enemyPrefab"/> in the <see cref="spawnRect"/>
 	/// </summary>
-	private void SpawnEnemy()
+	public override void SpawnEnemy()
 	{
 		Enemy newEnemy = Instantiate(enemyPrefab);
 
@@ -49,7 +35,7 @@ public class EdgeEnemySpawner : MonoBehaviour
 		Vector3 spawnPosition = spawnDirection.normalized * radius;
 		newEnemy.transform.position = spawnPosition;
 
-		newEnemy.directionRandomness = 20f;
+		newEnemy.directionRandomness = 25f;
 		newEnemy.movementDirection = -spawnDirection;
 		newEnemy.maxSpeed = 5.0f;
 		newEnemy.speed = 5.0f;
