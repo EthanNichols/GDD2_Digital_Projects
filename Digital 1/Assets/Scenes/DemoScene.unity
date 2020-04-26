@@ -6129,7 +6129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 0}
-  playAreaSize: {x: -80, y: -40}
+  playAreaSize: {x: 180, y: 180}
   camera: {fileID: 0}
 --- !u!4 &1660584748
 Transform:
@@ -6414,7 +6414,7 @@ PrefabInstance:
     - target: {fileID: 8910236705833909023, guid: 241609407f8152d4e941efdc12e49947,
         type: 3}
       propertyPath: timeBetweenSpawns
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8910236705833909023, guid: 241609407f8152d4e941efdc12e49947,
         type: 3}
