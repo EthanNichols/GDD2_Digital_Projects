@@ -51,6 +51,22 @@ public class Bullet : ColoredObj
         Enemy collidedEnemy = collision.gameObject.GetComponent<Enemy>();
         if (collidedEnemy != null)
         {
+
+			DuoEnemy duoEnemy = collidedEnemy.GetComponent<DuoEnemy>();
+			if (duoEnemy != null)
+			{
+				// Check if the bullet hit kills the enemy
+				if (duoEnemy.BulletHit(currentState))
+				{
+					ScoreManager.Instance.ChangeScoreBy(collidedEnemy.ScoreValue);
+					collidedEnemy.DestroyShip();
+				}
+
+				Destroy(gameObject);
+
+				return;
+			}
+
             if (collidedEnemy.CurrentState == this.currentState || ColorState.Rainbow == this.currentState)
             {
                 ScoreManager.Instance.ChangeScoreBy(collidedEnemy.ScoreValue);
