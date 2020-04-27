@@ -50,6 +50,8 @@ public class PlayArea : MonoBehaviour
 
 		//FindObjectOfType<CameraFollow>().SetInitialPos();
 		Debug.Log(rect);
+
+		Assets.Scripts.Shared.ScoreManager.Instance.isShuttingDown = false;
 	}
 
 

@@ -31,6 +31,39 @@ public class SceneSwitch : MonoBehaviour
 
     public void GotoGameOver()
     {
-        SceneManager.LoadScene(gameOverPath);
+		GameObject[] actObj = FindObjectsOfType<GameObject>();
+		if (actObj != null)
+		{
+			for (int i = 0; i < actObj.Length; i++)
+			{
+				if (actObj[i].name != "Score" && actObj[i].name != "HUD Canvas" && actObj[i].GetComponentInChildren<ScoreManager>() != null && actObj[i].GetComponentInChildren<ScoreManager>() != ScoreManager.Instance)
+					Destroy(actObj[i]);
+			}
+		}
+		ShieldPowerUp[] leftOverShields = FindObjectsOfType<ShieldPowerUp>();
+		SuperChargePowerup[] leftOverCharges = FindObjectsOfType<SuperChargePowerup>();
+		TwinFirePowerup[] leftOverTwins = FindObjectsOfType<TwinFirePowerup>();
+		if (leftOverCharges != null)
+		{
+			for (int i = 0; i < leftOverCharges.Length; i++)
+			{
+				Destroy(leftOverCharges[i].gameObject);
+			}
+		}
+		if (leftOverShields != null)
+		{
+			for (int i = 0; i < leftOverShields.Length; i++)
+			{
+				Destroy(leftOverShields[i].gameObject);
+			}
+		}
+		if (leftOverTwins != null)
+		{
+			for (int i = 0; i < leftOverTwins.Length; i++)
+			{
+				Destroy(leftOverTwins[i].gameObject);
+			}
+		}
+		SceneManager.LoadScene(gameOverPath);
     }
 }

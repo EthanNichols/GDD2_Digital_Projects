@@ -9,7 +9,13 @@ namespace Assets.Scripts.Shared
 {
     class ScoreManager:Singleton<ScoreManager>
     {
-        private int sessionHighScore = 0;
+		public bool isShuttingDown
+		{
+			get;
+			set;
+		}
+
+		private int sessionHighScore = 0;
 
         [SerializeField]
         int score = 0;

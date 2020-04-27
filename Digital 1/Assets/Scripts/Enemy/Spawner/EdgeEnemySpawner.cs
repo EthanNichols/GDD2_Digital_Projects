@@ -7,7 +7,7 @@ public class EdgeEnemySpawner : EnemySpawner
 	/// <summary>
 	/// The time since the last enemy spawn
 	/// </summary>
-	private float timeSinceLastSpawn;
+	private float _timeSinceLastSpawn;
 
 	/// <summary>
 	/// The distance from the center that enemies will spawn at.
@@ -44,11 +44,11 @@ public class EdgeEnemySpawner : EnemySpawner
 
 	void Update()
 	{
-		timeSinceLastSpawn += Time.deltaTime;
+		_timeSinceLastSpawn += Time.deltaTime;
 
-		if (timeSinceLastSpawn >= timeBetweenSpawns)
+		if (_timeSinceLastSpawn >= timeBetweenSpawns)
 		{
-			timeSinceLastSpawn -= timeBetweenSpawns;
+			_timeSinceLastSpawn -= timeBetweenSpawns;
 			spawnCount -= 1;
 			SpawnEnemy();
 

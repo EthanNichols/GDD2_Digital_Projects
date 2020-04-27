@@ -29,10 +29,30 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("DemoScene");
             ScoreManager.Instance.ResetScore();
-        }
+			AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+			for (int i = 0; i < audioSources.Length; i++)
+			{
+				if (audioSources[i].isPlaying)
+				{
+					audioSources[i].Stop();
+				}
+				if (audioSources[i].name == "BGM")
+				{
+					audioSources[i].Play();
+				}
+			}
+		}
 
         if (player.IsDead)
         {
+			AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+			for (int i = 0; i < audioSources.Length; i++)
+			{
+				if (audioSources[i].name == "BGM")
+				{
+					audioSources[i].Stop();
+				}
+			}
             sceneSwitcher.GotoGameOver();
         }
     }

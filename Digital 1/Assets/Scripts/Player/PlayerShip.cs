@@ -126,8 +126,17 @@ public class PlayerShip : ColoredObj
 
         }
 
-        // start the timer based on delay
-        fireTimer = fireDelay;
+		AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+		for (int i = 0; i < audioSources.Length; i++)
+		{
+			if (audioSources[i].name == "LaserShot")
+			{
+				audioSources[i].Play();
+			}
+		}
+
+		// start the timer based on delay
+		fireTimer = fireDelay;
     }
 
     /// <summary>
@@ -217,7 +226,16 @@ public class PlayerShip : ColoredObj
     /// </summary>
     void GameOver()
     {
-        healthBar.Health = 0;
+		//AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+		//for (int i = 0; i < audioSources.Length; i++)
+		//{
+		//	if (audioSources[i].name == "SpecialExplosion")
+		//	{
+		//		audioSources[i].Play();
+		//	}
+		//}
+		healthBar.Health = 0;
+		Assets.Scripts.Shared.ScoreManager.Instance.isShuttingDown = true;
         Destroy(gameObject);
     }
 
@@ -234,6 +252,18 @@ public class PlayerShip : ColoredObj
         }
     }
 
+	void PlayPowerUpSound()
+	{
+		AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+		for (int i = 0; i < audioSources.Length; i++)
+		{
+			if (audioSources[i].name == "PowerupGet")
+			{
+				audioSources[i].Play();
+			}
+		}
+	}
+
     // activate shield. or increase charge
     public void DeployShield()
     {
@@ -244,7 +274,7 @@ public class PlayerShip : ColoredObj
         }
         else
             activeShield.GetComponent<Shield>().IncreaseShieldCharge();
-
+		PlayPowerUpSound();
     }
 
     void DestroyShield()
@@ -256,7 +286,8 @@ public class PlayerShip : ColoredObj
     {
         twinFire = true;
         twinFireTimer = maxTwinFireTimer;
-    }
+		PlayPowerUpSound();
+	}
 
     public void ActivateSuperCharge()
     {
@@ -266,8 +297,9 @@ public class PlayerShip : ColoredObj
         {
             preSCColorState = currentState;
             ColorSwitch(ColorState.Rainbow);
-        }
-    }
+		}
+		PlayPowerUpSound();
+	}
 
     private void DeactivateSuperCharge()
     {
@@ -279,7 +311,7 @@ public class PlayerShip : ColoredObj
     /// <summary>
     /// Handle Inputs, check delays between firing.
     /// </summary>
-    public override void Update()
+    public /*override */void LateUpdate()
     {
         base.Update();
 

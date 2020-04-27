@@ -57,7 +57,15 @@ public class Enemy : ColoredObj
 
     public void DestroyShip() 
     {
-		if (powerupRef)
+		AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+		for (int i = 0; i < audioSources.Length; i++)
+		{
+			if (audioSources[i].name == "CommonExplosion")
+			{
+				audioSources[i].Play();
+			}
+		}
+		if (powerupRef && !Assets.Scripts.Shared.ScoreManager.Instance.isShuttingDown)
 		{
 			GameObject powerup = Instantiate(powerupRef);
 			powerup.transform.position = transform.position;
